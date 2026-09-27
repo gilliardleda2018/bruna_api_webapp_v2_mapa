@@ -25,7 +25,8 @@ Depois de atualizar a planilha de lideranças (`..\CIDADES ATUALIZADO.xlsx`), ro
 Usa o **Gemini** (Google) com chave gratuita criada em aistudio.google.com.
 - No computador: `set GEMINI_API_KEY=sua-chave` antes de abrir o painel.
 - No Streamlit Cloud: *Settings → Secrets* → `GEMINI_API_KEY = "sua-chave"`.
-- Opcional: `GEMINI_MODEL` para trocar o modelo (padrão `gemini-2.5-flash`).
+- `GEMINI_MODEL`: padrão `auto` (usa o Gemini Flash estável mais novo disponível na chave). Para fixar um
+  modelo, informe o nome, por exemplo `gemini-2.5-pro`.
 
 As respostas usam apenas os dados do painel. **No plano gratuito o Google pode usar as conversas para melhorar
 os produtos dele**, por isso os nomes das lideranças não são enviados. Com uma chave de plano pago, defina
@@ -41,3 +42,16 @@ os produtos dele**, por isso os nomes das lideranças não são enviados. Com um
    o app republica sozinho.
 
 Os dados brutos do TSE (votação por seção, ~1 GB) **não** vão para o repositório; ficam em `C:\modelo_bruna\dados_tse`.
+
+## Publicar no Render (versão em uso)
+O link do Render é **público**: defina a senha de acesso antes de divulgar o endereço à coordenação.
+
+*Environment → Environment Variables*:
+
+| Variável | Valor |
+|---|---|
+| `APP_PASSWORD` | senha da coordenação (**obrigatória**: sem ela o painel abre para qualquer pessoa) |
+| `GEMINI_API_KEY` | chave do Google AI Studio |
+| `GEMINI_MODEL` | opcional, padrão `auto` |
+
+O `render.yaml` já traz o comando de início, a versão do Python e a prévia do link no WhatsApp (`preparar_render.py`).

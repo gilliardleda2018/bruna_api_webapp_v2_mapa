@@ -6,6 +6,7 @@ Dados:  gerados por preparar_base_v13.py e modelos_v13.py (mesma pasta).
 import base64
 import json
 import os
+import re
 from pathlib import Path
 
 import numpy as np
@@ -57,7 +58,7 @@ def _exigir_senha():
     """
     import hmac
 
-    senha_certa = os.environ.get("APP_PASSWORD", "")
+    senha_certa = os.environ.get("APP_PASSWORD") or os.environ.get("PAINEL_SENHA", "")
     if not senha_certa or st.session_state.get("_acesso_ok"):
         return
     st.markdown("### 🔒 Painel restrito à coordenação")
@@ -949,7 +950,31 @@ if SECAO == 10:
 # 9. Pergunte à estratégia (Gemini)
 # ----------------------------------------------------------------------
 GEMINI_CHAVE = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-GEMINI_MODELO = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODELO_PEDIDO = os.environ.get("GEMINI_MODEL", "auto")  # "auto" = Flash estável mais novo da chave
+GEMINI_MODELO_RESERVA = "gemini-2.5-flash"
+
+
+@st.cache_data(ttl=6 * 3600, show_spinner=False)
+def modelo_gemini(chave, pedido):
+    """Com GEMINI_MODEL=auto, lista os modelos da chave e escolhe o Flash estável de versão mais alta."""
+    if pedido != "auto":
+        return pedido
+    try:
+        from google import genai
+        opcoes = []
+        for m in genai.Client(api_key=chave).models.list():
+            nome = (m.name or "").split("/")[-1]
+            acoes = m.supported_actions or []
+            if "generateContent" not in acoes or "flash" not in nome:
+                continue
+            if any(t in nome for t in ("lite", "image", "tts", "audio", "live", "embedding", "preview", "exp")):
+                continue
+            versao = re.search(r"gemini-(\d+(?:\.\d+)?)", nome)
+            if versao:
+                opcoes.append((float(versao.group(1)), nome.endswith("latest"), nome))
+        return max(opcoes)[2] if opcoes else GEMINI_MODELO_RESERVA
+    except Exception:
+        return GEMINI_MODELO_RESERVA
 # No plano gratuito o Google pode usar as conversas para melhorar os produtos dele:
 # por padrão NÃO enviamos nomes de lideranças. Com GEMINI_PLANO_PAGO=1 eles passam a ir no contexto.
 GEMINI_PLANO_PAGO = os.environ.get("GEMINI_PLANO_PAGO") == "1"
@@ -992,7 +1017,7 @@ def resposta_gemini(historico):
     conteudo = [types.Content(role="user" if m["role"] == "user" else "model",
                               parts=[types.Part(text=m["content"])]) for m in historico]
     fluxo = cliente.models.generate_content_stream(
-        model=GEMINI_MODELO, contents=conteudo,
+        model=modelo_gemini(GEMINI_CHAVE, GEMINI_MODELO_PEDIDO), contents=conteudo,
         config=types.GenerateContentConfig(
             system_instruction=SISTEMA + contexto_para_ia(GEMINI_PLANO_PAGO),
             temperature=0.3, max_output_tokens=4096))
@@ -1003,6 +1028,7 @@ def resposta_gemini(historico):
 
 if SECAO == 11:
     st.subheader("Pergunte à estratégia")
+    GEMINI_MODELO = modelo_gemini(GEMINI_CHAVE, GEMINI_MODELO_PEDIDO) if GEMINI_CHAVE else GEMINI_MODELO_PEDIDO
     st.caption(f"Respostas geradas pelo Gemini ({GEMINI_MODELO}, Google) com base somente nos dados deste painel. "
                "Confira os números antes de decidir.")
     if not GEMINI_CHAVE:
