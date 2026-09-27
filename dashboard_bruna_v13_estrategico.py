@@ -62,6 +62,18 @@ h1, h2, h3, h4 {font-family: 'Archivo', Arial, sans-serif !important; color: #12
 /* foto inteira dentro do banner, com folga acima da cabeça */
 .banner img {position: absolute; right: 3%; bottom: 0; height: calc(100% - 16px); max-height: 250px;
              width: auto; object-fit: contain; object-position: bottom; z-index: 1;}
+/* ---------- aba do clássico ---------- */
+.classico {border-radius: 22px; padding: 18px 20px 14px; margin-bottom: 14px; color: #fff; text-align: center;
+           background: linear-gradient(100deg, #E02597 0%, #8a2a8f 48%, #E8702A 100%);}
+.classico-titulo {font: 900 .85rem 'Manrope', sans-serif; letter-spacing: .14em; opacity: .95;}
+.placar {display: flex; align-items: center; justify-content: center; gap: 18px; margin: 10px 0;}
+.placar .time {flex: 1; max-width: 330px; background: rgba(255,255,255,.14); border-radius: 16px; padding: 10px;}
+.placar .cidade {font: 900 .8rem 'Manrope', sans-serif; letter-spacing: .12em;}
+.placar .jogadora {font: 900 1.3rem 'Archivo', sans-serif;}
+.placar .gols {font: 900 2.6rem/1.1 'Archivo', sans-serif;}
+.placar .obs {font: 600 .75rem 'Manrope', sans-serif; opacity: .9;}
+.placar .x {font: 900 2.4rem 'Archivo', sans-serif; opacity: .9;}
+.classico-rodape {font: 600 .9rem 'Manrope', sans-serif;}
 /* ---------- celular e tablet ---------- */
 @media (max-width: 760px) {
   .block-container {padding-left: 1rem; padding-right: 1rem; padding-top: 3.4rem;}
@@ -86,6 +98,8 @@ h1, h2, h3, h4 {font-family: 'Archivo', Arial, sans-serif !important; color: #12
   .cartao h4 {font-size: 1.05rem;}
   h2, h3 {font-size: 1.3rem !important;}
   .rodape {flex-direction: column; text-align: center;}
+  .placar {gap: 8px;} .placar .gols {font-size: 1.7rem;} .placar .jogadora {font-size: 1rem;}
+  .placar .x {font-size: 1.4rem;} .placar .cidade {font-size: .62rem;}
 }
 @media (min-width: 761px) and (max-width: 1100px) {
   .banner .texto {max-width: 58%;}
@@ -172,10 +186,18 @@ def carregar():
     ts = pd.read_csv(PASTA / "tuntum_secoes_v13.csv")
     ps = pd.read_csv(PASTA / "projecao_secoes_v13.csv")
     ps["bairro"] = ps["bairro"].fillna("")
-    return base, resumo, agenda, lid, geo, tb, ts, ps
+    duelo = {
+        "resumo": json.load(open(PASTA / "duelo_resumo.json", encoding="utf-8")),
+        "ml": json.load(open(PASTA / "duelo_ml_resumo.json", encoding="utf-8")),
+        "tuntum": pd.read_csv(PASTA / "duelo_tuntum_bairros.csv"),
+        "barra": pd.read_csv(PASTA / "duelo_barra_locais.csv"),
+        "barra_secoes": pd.read_csv(PASTA / "duelo_barra_secoes_classificadas.csv"),
+        "abigail": pd.read_csv(PASTA / "duelo_abigail_2026_municipios.csv"),
+    }
+    return base, resumo, agenda, lid, geo, tb, ts, ps, duelo
 
 
-base, R, agenda, lid, geo, tun_bairros, tun_secoes, proj_secoes = carregar()
+base, R, agenda, lid, geo, tun_bairros, tun_secoes, proj_secoes, DUELO = carregar()
 TUN = R["tuntum"]
 IDX_TUNTUM = int(np.flatnonzero(base.cidade_norm.values == "tuntum")[0])
 base["cd_ibge"] = base["cd_ibge"].astype(str)
@@ -279,7 +301,8 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-abas = st.tabs(["📋 Resumo da semana", "🗓️ Agenda", "📞 Lideranças", "🏠 Tuntum", "🧮 Seções e bairros",
+abas = st.tabs(["📋 Resumo da semana", "🗓️ Agenda", "📞 Lideranças", "🏠 Tuntum", "⚽ Tuntum × Barra",
+                "🧮 Seções e bairros",
                 "🔁 Eleitor do Eric", "🗺️ Mapa",
                 "🗳️ Dia da eleição", "🔎 Município", "🎛️ Simulador", "💬 Pergunte à estratégia",
                 "ℹ️ Como funciona"])
@@ -488,9 +511,139 @@ Nesses bairros o trabalho é <b>porta a porta com as lideranças do bairro</b>, 
             "grupo_nao_convertido_2022": "Não seguiu 2022"}), hide_index=True, width="stretch")
 
 # ----------------------------------------------------------------------
-# Seções e bairros — projeção de votos por seção eleitoral
+# O clássico: Tuntum × Barra do Corda (Bruna × Abigail)
 # ----------------------------------------------------------------------
 with abas[4]:
+    dr, dml = DUELO["resumo"], DUELO["ml"]
+    du, reg_inc, clf = dml["duelo"], dml["regressao_incumbencia"], dml["classificacao_barra"]
+    chance = du["prob_bruna_supera_abigail_total"]
+    st.markdown(f"""
+<div class="classico">
+  <div class="classico-titulo">⚽ O CLÁSSICO DO CENTRO MARANHENSE ⚽</div>
+  <div class="placar">
+    <div class="time casa"><div class="cidade">TUNTUM</div><div class="jogadora">Bruna Pessoa</div>
+      <div class="gols">{mil(du['bruna_p50'])}</div><div class="obs">estreante · 15800</div></div>
+    <div class="x">×</div>
+    <div class="time fora"><div class="cidade">BARRA DO CORDA</div><div class="jogadora">Abigail Cunha</div>
+      <div class="gols">{mil(du['abigail_2026_p50'])}</div><div class="obs">com mandato · busca a reeleição</div></div>
+  </div>
+  <div class="classico-rodape">Placar projetado para 4 de outubro · a Bruna termina na frente em
+  <b>{pct(chance)}</b> dos 20 mil jogos simulados</div>
+</div>
+""", unsafe_allow_html=True)
+    st.markdown(
+        "Tem rivalidade mais antiga que essa? Tuntum e Barra do Corda são vizinhas, se conhecem de longa data e, "
+        "em 2026, cada uma tem a sua candidata. A Abigail já tem a camisa de titular (o mandato), a Bruna "
+        "estreia agora — mas estreia com a torcida inteira de Tuntum na arquibancada. Bora ver como está o jogo. 👇")
+
+    # ---------- 1º tempo: jogando em casa ----------
+    st.markdown("### 🏟️ Primeiro tempo: cada uma no seu estádio")
+    c = st.columns(2)
+    with c[0]:
+        st.markdown(f"""
+<div class="cartao"><h4>Em Tuntum, é goleada 💗</h4>
+A Bruna deve fazer <b>{n(dr['tuntum']['bruna'])}</b> votos em casa. A Abigail, em 2022, tirou
+<b>{n(dr['tuntum']['abigail_2022'])}</b> por lá — dá pra contar nos dedos (de muitas mãos, tá bom).
+Aqui o trabalho não é ganhar, é <b>encher o estádio</b>: cada eleitor do Fernando que votar na Bruna conta.</div>
+""", unsafe_allow_html=True)
+    with c[1]:
+        st.markdown(f"""
+<div class="cartao risco"><h4>Em Barra do Corda, o mando é dela 🧡</h4>
+Em 2022 a Abigail fez <b>{n(dr['barra']['abigail_2022'])}</b> votos em casa (42%). Nossa projeção: ela mantém
+algo perto de <b>{n(du['abigail_barra_p50'])}</b>, e a Bruna chega a uns <b>{n(du['bruna_barra_p50'])}</b>.
+Não é jogo pra virar em casa dela — é jogo pra <b>não tomar goleada</b> e marcar gol onde a gente já marcou antes.</div>
+""", unsafe_allow_html=True)
+    dt = DUELO["tuntum"].head(12)
+    fig = go.Figure()
+    fig.add_bar(y=dt.bairro, x=dt.bruna_projecao, name="Bruna (projeção)", orientation="h", marker_color=ROSA)
+    fig.add_bar(y=dt.bairro, x=dt.abigail_2022, name="Abigail (2022)", orientation="h", marker_color=VERMELHO)
+    fig.update_layout(title="Tuntum, bairro a bairro — o estádio da Bruna", barmode="group", height=460,
+                      yaxis=dict(autorange="reversed", title=""), xaxis_title="Votos",
+                      legend=dict(orientation="h", y=-0.15), margin=dict(t=50, l=10))
+    st.plotly_chart(fig, width="stretch")
+
+    # ---------- as trincheiras dentro de Barra do Corda ----------
+    st.markdown("### 🚩 As trincheiras: onde a gente já ganhou dela dentro de Barra do Corda")
+    trinch = DUELO["barra"][DUELO["barra"].resultado_2018_2022 == "Trincheira Pessoa"].sort_values(
+        "fernando_2018", ascending=False)
+    st.markdown(
+        f"Em **{dr['barra']['trincheiras']} dos {dr['barra']['locais']} locais de votação** de Barra do Corda, o "
+        f"Fernando Pessoa (2018) teve mais votos do que a Abigail (2022). São os nossos cantinhos da arquibancada "
+        f"no estádio adversário — é por aí que a Bruna tem que passar com carreata e aperto de mão. 🤝")
+    tabela(trinch[["local_votacao", "endereco", "secoes", "fernando_2018", "abigail_2022", "bruna_projecao"]].rename(
+        columns={"local_votacao": "Local de votação", "endereco": "Endereço", "secoes": "Seções",
+                 "fernando_2018": "Fernando 2018", "abigail_2022": "Abigail 2022",
+                 "bruna_projecao": "Bruna (projeção)"}))
+    bl = DUELO["barra"]
+    fig = px.scatter(bl, x="abigail_2022", y="fernando_2018", size="votantes", color="resultado_2018_2022",
+                     hover_name="local_votacao", size_max=28, height=440,
+                     color_discrete_map={"Trincheira Pessoa": ROSA, "Reduto Abigail": VERMELHO},
+                     labels={"abigail_2022": "Votos da Abigail (2022)", "fernando_2018": "Votos do Fernando (2018)",
+                             "resultado_2018_2022": ""})
+    lim = float(max(bl.abigail_2022.max(), bl.fernando_2018.max())) * 1.05
+    fig.add_scatter(x=[0, lim], y=[0, lim], mode="lines", line=dict(color=CINZA, dash="dot"),
+                    name="empate", hoverinfo="skip")
+    fig.update_layout(title="Cada bolinha é um local de votação · acima da linha = ponto do grupo Pessoa",
+                      legend=dict(orientation="h", y=-0.2), margin=dict(t=50))
+    st.plotly_chart(fig, width="stretch")
+
+    # ---------- 2º tempo: campo neutro ----------
+    st.markdown("### 🌾 Segundo tempo: o campo neutro (onde o jogo se decide de verdade)")
+    st.markdown(
+        f"Fora das duas cidades, num raio de 150 km, a disputa é aberta. Somando os {du['municipios_regiao']} "
+        f"municípios da região, a Bruna projeta **{mil(du['bruna_regiao_p50'])}** contra **{mil(du['abigail_regiao_p50'])}** "
+        f"da Abigail — e fica na frente em **{pct(du['prob_bruna_supera_abigail_regiao'])}** dos cenários. "
+        "É aqui que a gente ganha o clássico. ⚽")
+    ab26 = DUELO["abigail"].merge(base[["municipio", "cidade_norm"]], on="municipio")
+    neutro = ab26[(ab26.dist_tuntum_km <= 150) & ~ab26.cidade_norm.isin(["tuntum", "barra do corda"])
+                  & ((ab26.abigail_2026 >= 150) | (ab26.votos_projetados >= 150))].copy()
+    neutro["saldo"] = neutro.votos_projetados - neutro.abigail_2026
+    neutro["situacao"] = np.select([neutro.saldo >= 200, neutro.saldo <= -200],
+                                   ["💗 Bruna na frente", "🧡 Abigail na frente"], "🤝 Disputa acirrada")
+    neutro = neutro.sort_values("saldo")
+    fig = px.bar(neutro, x="saldo", y="municipio", orientation="h", color="situacao", height=max(360, 24 * len(neutro)),
+                 color_discrete_map={"💗 Bruna na frente": ROSA, "🧡 Abigail na frente": VERMELHO,
+                                     "🤝 Disputa acirrada": "#6D93D1"},
+                 labels={"saldo": "Saldo projetado (Bruna − Abigail)", "municipio": "", "situacao": ""})
+    fig.update_layout(title="Saldo de votos por município do campo neutro", legend=dict(orientation="h", y=-0.08),
+                      margin=dict(t=50, l=10))
+    st.plotly_chart(fig, width="stretch")
+    acirr = neutro[neutro.situacao == "🤝 Disputa acirrada"].municipio.tolist()
+    if acirr:
+        st.markdown(f"**Jogo pegado, bola dividida:** {', '.join(acirr)}. Uma visita aqui pode virar o placar.")
+
+    # ---------- VAR ----------
+    with st.expander("📺 Chama o VAR: como os modelos chegaram nesse placar"):
+        st.markdown(f"""
+**Quem tem mandato cresce? (regressão linear de incumbência)**
+Olhamos os {reg_inc['incumbentes_analisados']} deputados estaduais que estavam entre os mais votados de 2018 e voltaram
+em 2022. No total, o deputado com mandato **cresceu {pct(reg_inc['crescimento_total_mediano'] - 1)} na mediana**
+(metade ficou entre {pct(reg_inc['crescimento_total_p25'])} e {pct(reg_inc['crescimento_total_p75'])} do que tinha) — e só
+{pct(reg_inc['pct_incumbentes_que_cresceram'])} deles cresceram. Mandato ajuda, mas não garante.
+
+Mais curioso: nos **{reg_inc['redutos_analisados']} redutos** (municípios com 20% ou mais em 2018), eles mantiveram só
+**{pct(reg_inc['retencao_reduto_mediana'])}** do percentual, na mediana. Reduto que depende de prefeito aliado muda de
+lado — foi exatamente o que aconteceu em Tuntum, que foi do Eric e agora é da Bruna.
+A regressão (% de 2022 explicado pelo % de 2018, R² = {reg_inc['r2_validacao_cruzada']}) distribui os votos da Abigail
+pelos municípios. **Barra do Corda é a casa dela**, então ali assumimos que ela mantém entre
+{pct(reg_inc['retencao_casa_premissa'][0])} e {pct(reg_inc['retencao_casa_premissa'][1])} do percentual de 2022.
+
+**Onde a Bruna pode pontuar em Barra do Corda? (classificação)**
+Treinamos Regressão Logística e Random Forest para prever se cada uma das {clf['secoes']} seções é
+"Trincheira Pessoa" ou "Reduto Abigail". Sendo honesto com o torcedor: o melhor modelo ({clf['modelo_escolhido']})
+acertou **{pct(clf['acuracia_random_forest'])}**, praticamente o mesmo que chutar sempre "Reduto Abigail"
+({pct(clf['acuracia_chute_maioria'])}); a AUC de {clf['auc_random_forest']} indica sinal fraco. O que ele ensina:
+**onde o Eric foi bem em 2022, o grupo Pessoa costuma bater a Abigail** — o maior peso do modelo. Por isso
+a lista de trincheiras acima usa o resultado real, e o modelo serve de pista, não de sentença.
+
+**O placar final (Monte Carlo)** junta a simulação da Bruna (modelo principal) com a da Abigail
+(crescimento real de quem tem mandato, sorteado dos {reg_inc['incumbentes_analisados']} casos) e roda 20 mil jogos.
+""")
+
+# ----------------------------------------------------------------------
+# Seções e bairros — projeção de votos por seção eleitoral
+# ----------------------------------------------------------------------
+with abas[5]:
     st.subheader("Projeção de votos por seção e bairro")
     st.markdown(
         "Quantos votos a Bruna deve ter em **cada seção eleitoral**. Serve para dar **meta por seção** às lideranças "
@@ -564,7 +717,7 @@ with abas[4]:
 # ----------------------------------------------------------------------
 # 4. Eleitor do Eric
 # ----------------------------------------------------------------------
-with abas[5]:
+with abas[6]:
     st.subheader("O eleitor que votou no Eric por causa do grupo")
     st.markdown(
         "Em 2022 o prefeito Fernando Pessoa apoiou Eric Costa. Parte desse eleitor votou **no grupo**, não no Eric. "
@@ -591,7 +744,7 @@ with abas[5]:
 # ----------------------------------------------------------------------
 # 5. Mapa
 # ----------------------------------------------------------------------
-with abas[6]:
+with abas[7]:
     visao = st.radio("Colorir o mapa por", ["Votos projetados", "Perfil estratégico", "Situação da rede de campo",
                                             "Voto do Eric 2022 (%)", "Voto da Abigail 2022 (%)"], horizontal=True)
     comum = dict(geojson=geo, locations="cd_ibge", featureidkey="properties.CD_MUN", hover_name="municipio",
@@ -618,7 +771,7 @@ with abas[6]:
 # ----------------------------------------------------------------------
 # 6. Dia da eleição
 # ----------------------------------------------------------------------
-with abas[7]:
+with abas[8]:
     st.subheader("Domingo, 4 de outubro: onde colocar fiscais e mobilização")
     st.markdown(
         "Prioridade = votos projetados + metade da incerteza (onde o resultado ainda pode mudar). "
@@ -644,7 +797,7 @@ with abas[7]:
 # ----------------------------------------------------------------------
 # 7. Ficha do município
 # ----------------------------------------------------------------------
-with abas[8]:
+with abas[9]:
     ordem = base.sort_values("votos_projetados", ascending=False).municipio.tolist()
     escolha = st.selectbox("Escolha o município", ordem)
     m = base.loc[base.municipio == escolha].iloc[0]
@@ -665,7 +818,7 @@ with abas[8]:
 # ----------------------------------------------------------------------
 # 8. Simulador
 # ----------------------------------------------------------------------
-with abas[9]:
+with abas[10]:
     st.subheader("E se…? Mexa nas premissas e veja o resultado")
     p = R["premissas"]
     c = st.columns(3)
@@ -695,43 +848,73 @@ with abas[9]:
         f"da expectativa registrada para chegar a 38,3 mil (cálculo aproximado).")
 
 # ----------------------------------------------------------------------
-# 9. Pergunte à estratégia (Claude)
+# 9. Pergunte à estratégia (Gemini)
 # ----------------------------------------------------------------------
+GEMINI_CHAVE = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+GEMINI_MODELO = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+# No plano gratuito o Google pode usar as conversas para melhorar os produtos dele:
+# por padrão NÃO enviamos nomes de lideranças. Com GEMINI_PLANO_PAGO=1 eles passam a ir no contexto.
+GEMINI_PLANO_PAGO = os.environ.get("GEMINI_PLANO_PAGO") == "1"
+
+
 @st.cache_data
-def contexto_para_ia():
+def contexto_para_ia(incluir_nomes):
     cols = ["municipio", "segmento", "votos_projetados", "votos_p10", "votos_p90", "expectativa_total",
             "votos_historico", "votos_fieis_grupo", "eleitor_eric_a_converter", "situacao_campo",
             "prefeito_apoia", "pct_fernando_pessoa_2018", "pct_eric_costa_2022", "pct_abigail_2022",
-            "pct_daniella_2022", "dist_tuntum_km", "secoes", "locais_votacao"]
+            "pct_daniella_2022", "dist_tuntum_km", "secoes", "locais_votacao", "total_liderancas"]
     tab = base[base.votos_projetados >= 50].sort_values("votos_projetados", ascending=False)[cols]
-    lids = lid.groupby("cidade_norm").lideranca.apply(lambda s: ", ".join(map(str, s))).to_dict()
-    tab["liderancas"] = base.loc[tab.index, "cidade_norm"].map(lids).fillna("")
+    if incluir_nomes:
+        lids = lid.groupby("cidade_norm").lideranca.apply(lambda s: ", ".join(map(str, s))).to_dict()
+        tab["liderancas"] = base.loc[tab.index, "cidade_norm"].map(lids).fillna("")
     return (
         "RESUMO DOS MODELOS (JSON):\n" + json.dumps({k2: R[k2] for k2 in R if k2 != "simulacao"} | {
             "simulacao": {k2: v for k2, v in sim.items() if k2 not in ("histograma", "bordas")}},
             ensure_ascii=False) +
         "\n\nAGENDA SUGERIDA (CSV):\n" + agenda.to_csv(index=False) +
+        "\n\nTUNTUM POR BAIRRO (CSV):\n" + tun_bairros.to_csv(index=False) +
         "\n\nMUNICÍPIOS COM PROJEÇÃO >= 50 VOTOS (CSV):\n" + tab.to_csv(index=False))
 
 
 SISTEMA = (
-    "Você é o analista de estratégia da campanha de Bruna Pessoa (MDB), candidata a deputada estadual no "
-    "Maranhão, apoiada pelo irmão, o prefeito de Tuntum Fernando Pessoa (que em 2022 apoiou Eric Costa). "
+    "Você é o analista de estratégia da campanha de Bruna Pessoa (MDB, número 15800), candidata a deputada "
+    "estadual no Maranhão, apoiada pelo irmão, o prefeito de Tuntum Fernando Pessoa (que em 2022 apoiou Eric Costa). "
     "A eleição é no domingo, 4 de outubro de 2026. Responda em português do Brasil, de forma direta e prática, "
     "com foco no que a equipe consegue executar nos próximos dias (agenda, lideranças, mensagem, fiscais). "
     "Use apenas os dados fornecidos abaixo; quando algo não estiver nos dados, diga que não sabe. Cite números. "
     "Nunca sugira ações ilegais pela legislação eleitoral (compra de voto, transporte de eleitor no dia, "
     "propaganda fora do prazo).\n\n")
 
-with abas[10]:
+
+def resposta_gemini(historico):
+    """Gera a resposta em streaming (texto em pedaços) a partir do histórico da conversa."""
+    from google import genai
+    from google.genai import types
+    cliente = genai.Client(api_key=GEMINI_CHAVE)
+    conteudo = [types.Content(role="user" if m["role"] == "user" else "model",
+                              parts=[types.Part(text=m["content"])]) for m in historico]
+    fluxo = cliente.models.generate_content_stream(
+        model=GEMINI_MODELO, contents=conteudo,
+        config=types.GenerateContentConfig(
+            system_instruction=SISTEMA + contexto_para_ia(GEMINI_PLANO_PAGO),
+            temperature=0.3, max_output_tokens=4096))
+    for pedaco in fluxo:
+        if pedaco.text:
+            yield pedaco.text
+
+
+with abas[11]:
     st.subheader("Pergunte à estratégia")
-    st.caption("Respostas geradas pelo Claude (Anthropic) com base somente nos dados deste painel.")
-    tem_credencial = any(os.environ.get(v) for v in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_PROFILE"))
-    if not tem_credencial:
-        st.warning("Para ativar, defina a variável de ambiente `ANTHROPIC_API_KEY` antes de abrir o painel "
-                   "(ou faça `ant auth login`) e recarregue a página.")
+    st.caption(f"Respostas geradas pelo Gemini ({GEMINI_MODELO}, Google) com base somente nos dados deste painel. "
+               "Confira os números antes de decidir.")
+    if not GEMINI_CHAVE:
+        st.warning("Para ativar, crie uma chave gratuita em aistudio.google.com e defina `GEMINI_API_KEY` "
+                   "(no computador: variável de ambiente; no Streamlit Cloud: Settings → Secrets).")
+    elif not GEMINI_PLANO_PAGO:
+        st.info("🔒 Plano gratuito: por segurança, os **nomes das lideranças não são enviados** ao Google. "
+                "As respostas usam números, municípios, bairros e a agenda.")
     sugestoes = ["Se a Bruna só pudesse ir a 3 cidades até quinta, quais e por quê?",
-                 "Quais lideranças eu devo ligar hoje e o que perguntar a cada uma?",
+                 "Em quais municípios eu devo cobrar as lideranças hoje?",
                  "Qual a mensagem para o eleitor que votou no Eric em 2022 em Tuntum?",
                  "Onde estamos mais vulneráveis e o que fazer?"]
     if "chat" not in st.session_state:
@@ -739,55 +922,43 @@ with abas[10]:
     cols = st.columns(len(sugestoes))
     pergunta = None
     for i, s in enumerate(sugestoes):
-        if cols[i].button(s, width="stretch"):
+        if cols[i].button(s, width="stretch", disabled=not GEMINI_CHAVE):
             pergunta = s
     for msg in st.session_state.chat:
         st.chat_message(msg["role"]).markdown(msg["content"])
-    pergunta = st.chat_input("Escreva sua pergunta…") or pergunta
-    if pergunta:
+    pergunta = st.chat_input("Escreva sua pergunta…", disabled=not GEMINI_CHAVE) or pergunta
+    if pergunta and GEMINI_CHAVE:
         st.chat_message("user").markdown(pergunta)
         st.session_state.chat.append({"role": "user", "content": pergunta})
         with st.chat_message("assistant"):
+            from google.genai import errors as gerros
             try:
-                import anthropic
-                cliente = anthropic.Anthropic()
-                with cliente.beta.messages.stream(
-                    model="claude-opus-5",
-                    max_tokens=16000,
-                    thinking={"type": "adaptive"},
-                    output_config={"effort": "medium"},
-                    system=[{"type": "text", "text": SISTEMA + contexto_para_ia(),
-                             "cache_control": {"type": "ephemeral"}}],
-                    messages=st.session_state.chat,
-                    betas=["server-side-fallback-2026-07-01"],
-                    extra_body={"fallbacks": "default"},
-                ) as stream:
-                    resposta = st.write_stream(stream.text_stream)
-                    final = stream.get_final_message()
-                if final.stop_reason == "refusal":
+                resposta = st.write_stream(resposta_gemini(st.session_state.chat))
+                if not resposta:
                     resposta = "Não consegui responder a essa pergunta. Tente reformular."
                     st.markdown(resposta)
-                st.session_state.chat.append({"role": "assistant", "content": resposta or ""})
-            except anthropic.AuthenticationError:
-                st.error("Credencial da Anthropic inválida. Verifique a ANTHROPIC_API_KEY.")
+                st.session_state.chat.append({"role": "assistant", "content": resposta})
+            except gerros.ClientError as e:
+                if e.code == 429:
+                    st.error("Limite do plano gratuito do Gemini atingido. Aguarde um minuto e tente de novo.")
+                elif e.code in (400, 401, 403):
+                    st.error(f"Chave do Gemini inválida ou sem permissão ({e.code}). Confira a GEMINI_API_KEY.")
+                elif e.code == 404:
+                    st.error(f"Modelo `{GEMINI_MODELO}` não encontrado. Ajuste GEMINI_MODEL.")
+                else:
+                    st.error(f"Erro do Gemini ({e.code}): {e.message}")
                 st.session_state.chat.pop()
-            except anthropic.RateLimitError:
-                st.error("Limite de uso atingido. Aguarde um minuto e tente de novo.")
+            except gerros.ServerError as e:
+                st.error(f"O Gemini está instável agora ({e.code}). Tente de novo em instantes.")
                 st.session_state.chat.pop()
-            except anthropic.APIConnectionError:
-                st.error("Sem conexão com a API. Verifique a internet.")
-                st.session_state.chat.pop()
-            except anthropic.APIStatusError as e:
-                st.error(f"Erro da API ({e.status_code}): {e.message}")
-                st.session_state.chat.pop()
-            except TypeError:
-                st.error("Nenhuma credencial da Anthropic encontrada. Defina ANTHROPIC_API_KEY.")
+            except Exception as e:  # rede, timeout
+                st.error(f"Não foi possível falar com o Gemini: {e}")
                 st.session_state.chat.pop()
 
 # ----------------------------------------------------------------------
 # 10. Como funciona
 # ----------------------------------------------------------------------
-with abas[11]:
+with abas[12]:
     mp = R["modelo_potencial"]
     st.subheader("Como o painel chega aos números")
     st.markdown(f"""

@@ -1,0 +1,53 @@
+{
+  "regressao_incumbencia": {
+    "incumbentes_analisados": 28,
+    "pares_municipio": 5617,
+    "r2_validacao_cruzada": 0.28,
+    "coeficiente": 0.494,
+    "intercepto": 0.449,
+    "crescimento_total_mediano": 1.024,
+    "crescimento_total_p25": 0.794,
+    "crescimento_total_p75": 1.166,
+    "pct_incumbentes_que_cresceram": 0.571,
+    "redutos_analisados": 90,
+    "retencao_reduto_mediana": 0.366,
+    "retencao_reduto_p25": 0.023,
+    "retencao_reduto_p75": 0.837,
+    "retencao_casa_premissa": [
+      0.6,
+      1.0
+    ]
+  },
+  "classificacao_barra": {
+    "secoes": 220,
+    "trincheiras_2018_2022": 52,
+    "acuracia_logistica": 0.745,
+    "auc_logistica": 0.613,
+    "acuracia_random_forest": 0.759,
+    "auc_random_forest": 0.648,
+    "acuracia_chute_maioria": 0.764,
+    "modelo_escolhido": "Random Forest",
+    "coeficientes_logistica": {
+      "Tamanho da seção": -0.197,
+      "Seção rural (povoado)": 0.098,
+      "Aldeia indígena": 0.107,
+      "% do Eric em 2022": 0.603,
+      "% brancos e nulos": 0.21
+    },
+    "secoes_disputaveis": 55
+  },
+  "duelo": {
+    "prob_bruna_supera_abigail_total": 0.651,
+    "prob_bruna_supera_abigail_barra": 0.008,
+    "prob_bruna_supera_abigail_regiao": 0.789,
+    "abigail_2026_p10": 28345,
+    "abigail_2026_p50": 48707,
+    "abigail_2026_p90": 65073,
+    "bruna_p50": 53531,
+    "abigail_barra_p50": 16220,
+    "bruna_barra_p50": 7982,
+    "abigail_regiao_p50": 12274,
+    "bruna_regiao_p50": 17215,
+    "municipios_regiao": 48
+  }
+}

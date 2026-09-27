@@ -17,19 +17,26 @@ Depois de atualizar a planilha de lideranças (`..\CIDADES ATUALIZADO.xlsx`), ro
 | 6 | `tuntum_secoes_v13.py` | Calibra Tuntum seção a seção (prefeito 2024 × dep. estadual 2022) |
 | 7 | `modelos_v13.py` | Modelo de potencial, projeção, Monte Carlo, perfis e agenda |
 | 8 | `secoes_v13.py` | Projeção por seção eleitoral (bairro em Tuntum, local de votação nos demais) |
-| 9 | `dashboard_bruna_v13_estrategico.py` | Painel Streamlit |
+| 9 | `duelo_v13.py` | Clássico Tuntum × Barra do Corda: Bruna × Abigail por bairro, local e campo neutro |
+| 10 | `duelo_modelos_v13.py` | Regressão de incumbência (Abigail 2026), classificação de seções e Monte Carlo do duelo |
+| 11 | `dashboard_bruna_v13_estrategico.py` | Painel Streamlit |
 
 ## Aba "Pergunte à estratégia"
-Usa o Claude (Anthropic). Defina `ANTHROPIC_API_KEY` antes de abrir o painel.
-As respostas usam apenas os dados do painel.
+Usa o **Gemini** (Google) com chave gratuita criada em aistudio.google.com.
+- No computador: `set GEMINI_API_KEY=sua-chave` antes de abrir o painel.
+- No Streamlit Cloud: *Settings → Secrets* → `GEMINI_API_KEY = "sua-chave"`.
+- Opcional: `GEMINI_MODEL` para trocar o modelo (padrão `gemini-2.5-flash`).
+
+As respostas usam apenas os dados do painel. **No plano gratuito o Google pode usar as conversas para melhorar
+os produtos dele**, por isso os nomes das lideranças não são enviados. Com uma chave de plano pago, defina
+`GEMINI_PLANO_PAGO = "1"` para incluí-los.
 
 ## Publicar no Streamlit Community Cloud
 1. Em share.streamlit.io → **Create app** → repositório `gilliardleda2018/bruna_api_webapp_v2_mapa`, branch `main`,
    arquivo principal `dashboard_bruna_v13_estrategico.py`.
 2. **Mantenha o app privado**: o painel tem nomes de lideranças, metas e estratégia. Em *Settings → Sharing*,
    convide só a coordenação pelo e-mail.
-3. (Opcional) Para a aba "Pergunte à estratégia": *Settings → Secrets* →
-   `ANTHROPIC_API_KEY = "sua-chave"`.
+3. Para a aba "Pergunte à estratégia": *Settings → Secrets* → `GEMINI_API_KEY = "sua-chave"`.
 4. Para atualizar os números: rode `atualizar_modelos.bat` no computador, faça commit dos CSV/JSON e push —
    o app republica sozinho.
 

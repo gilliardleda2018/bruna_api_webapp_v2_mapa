@@ -1,0 +1,23 @@
+{
+  "tuntum": {
+    "bruna": 10993,
+    "abigail_2022": 128,
+    "votantes": 24161
+  },
+  "barra": {
+    "bruna": 7966,
+    "abigail_2022": 19661,
+    "fernando_2018": 14261,
+    "votantes": 46775,
+    "locais": 98,
+    "trincheiras": 20
+  },
+  "estado": {
+    "bruna": 53106,
+    "abigail_2022": 48025
+  },
+  "campo_neutro": {
+    "municipios": 33,
+    "bruna_na_frente": 19
+  }
+}

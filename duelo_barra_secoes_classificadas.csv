@@ -1,0 +1,221 @@
+zona,secao,secao_txt,local_votacao,endereco,total,rural,indigena,fernando_2018,abigail_2022,eric_2022,bruna_projetados,alvo_trincheira,prob_trincheira,classe_prevista
+23,15,Seção 015,Unidade Integrada Sidney Milhomem,"Povoado Cajazeira Br, Zona Rural Barra Do Corda/Ma",266,1,0,54.0,111,61.0,40.0,0,0.276,Reduto Abigail
+23,16,Seção 016,Unidade Integrada Sidney Milhomem,"Povoado Cajazeira Br, Zona Rural Barra Do Corda/Ma",244,1,0,71.0,91,52.0,43.1,0,0.337,Reduto Abigail
+23,17,Seção 017,Unidade Integrada Francisco Viana,Povoado Clemente,297,1,0,75.0,130,116.0,59.7,0,0.508,Trincheira Pessoa
+23,18,Seção 018,Unidade Integrada Francisco Viana,Povoado Clemente,279,1,0,130.0,121,105.0,75.2,1,0.232,Reduto Abigail
+23,19,Seção 019,Unidade Escolar Pedro Marina,Povoado Jatoba,74,1,0,14.0,48,6.0,8.5,0,0.178,Reduto Abigail
+23,26,Seção 026,Unidade Escolar Salomao Barroso,Povoado Sao Miguel,78,1,0,39.0,49,5.0,16.8,0,0.202,Reduto Abigail
+23,35,Seção 035,Receita Estadual,Avenida Eliezer Moreira S/N,204,0,0,0.0,81,32.0,13.7,0,0.117,Reduto Abigail
+23,63,Seção 063,Unidade Integrada Adelia Falcao,Povoado Escondido,220,1,0,46.0,111,19.0,26.9,0,0.396,Reduto Abigail
+23,64,Seção 064,Unidade Integrada Vanderly Felix Costa,"Povoado Santa Vitoria, Zona Rural - Barra Do Corda/Ma",258,1,0,55.0,121,84.0,44.9,0,0.54,Trincheira Pessoa
+23,66,Seção 066,Unidade Integrada Vanderly Felix Costa,"Povoado Santa Vitoria, Zona Rural - Barra Do Corda/Ma",239,1,0,86.0,106,72.0,52.1,0,0.444,Reduto Abigail
+23,67,Seção 067,Unidade Integrada Marcelino Miranda,Povoado Centro Do Roque,227,1,0,74.0,129,6.0,33.8,0,0.352,Reduto Abigail
+23,69,Seção 069,Unidade Integrada Marcelino Miranda,Povoado Centro Do Roque,214,1,0,65.0,131,5.0,30.1,0,0.079,Reduto Abigail
+23,71,Seção 071,Unidade Integrada Hermogenes Alves De Barros,"Povoado Anapurus, Zona Rural - Barra Do Corda/Ma",189,1,0,63.0,100,40.0,36.0,0,0.159,Reduto Abigail
+23,72,Seção 072,Unidade Integrada Hermogenes Alves De Barros,"Povoado Anapurus, Zona Rural - Barra Do Corda/Ma",186,1,0,66.0,121,29.0,34.6,0,0.121,Reduto Abigail
+23,73,Seção 073,Unidade Integrada Hermogenes Alves De Barros,"Povoado Anapurus, Zona Rural - Barra Do Corda/Ma",190,1,0,74.0,118,32.0,38.0,0,0.187,Reduto Abigail
+23,74,Seção 074,Unidade Escolar Francisco De Melo Albuquerque,Povoado Floresta,136,1,0,62.0,65,34.0,32.6,0,0.269,Reduto Abigail
+23,75,Seção 075,Unidade Escolar Goncalves Dias,Povoado Lagoinha,98,1,0,46.0,43,25.0,24.0,1,0.194,Reduto Abigail
+23,76,Seção 076,Unidade Integrada Augusto Alves De Barros,Povoado Estreito,219,1,0,84.0,103,27.0,41.3,0,0.228,Reduto Abigail
+23,77,Seção 077,Unidade Integrada Maria Safira Da Silva,Avenida Jose Delfino Meneses,302,0,0,43.0,110,53.0,35.9,0,0.085,Reduto Abigail
+23,79,Seção 079,Unidade Integrada Maria Safira Da Silva,Avenida Jose Delfino Meneses,296,0,0,67.0,85,51.0,43.3,0,0.035,Reduto Abigail
+23,84,Seção 084,Ceefm Pio Xi,Praca Melo Uchoa 49,231,0,0,34.0,99,25.0,24.5,0,0.114,Reduto Abigail
+23,85,Seção 085,Academia Barracordense De Letras,Rua Luis Domingues S/N,268,0,0,62.0,125,31.0,36.4,0,0.083,Reduto Abigail
+23,86,Seção 086,Gerencia Do Estado De Desenvolvimento Regional De Barra Do Corda,Rua Frederico Figueira S/N,246,0,0,97.0,105,42.0,49.7,0,0.286,Reduto Abigail
+23,87,Seção 087,Unidade Integrada Frederico Figueira,Rua Isaac Martins 378,309,0,0,67.0,134,37.0,40.8,0,0.047,Reduto Abigail
+23,88,Seção 088,Camara Municipal,Rua Araao Brito S/N,255,0,0,74.0,102,26.0,39.0,0,0.128,Reduto Abigail
+23,89,Seção 089,Ceefm Pio Xi,Praca Melo Uchoa 49,225,0,0,52.0,91,26.0,30.6,0,0.026,Reduto Abigail
+23,99,Seção 099,Sindicato Dos Trabalhadores Rurais,Avenida  Eliezer Moreira S/N,235,0,0,80.0,77,43.0,43.9,1,0.526,Trincheira Pessoa
+23,104,Seção 104,Colegio Diocesano,Avenida Eliezer Moreira S/N,303,0,0,27.0,121,44.0,28.6,0,0.028,Reduto Abigail
+23,106,Seção 106,Colegio Diocesano,Avenida Eliezer Moreira S/N,302,0,0,0.0,115,48.0,20.4,0,0.002,Reduto Abigail
+23,108,Seção 108,Colegio Diocesano,Avenida Eliezer Moreira S/N,148,0,0,0.0,53,24.0,10.1,0,0.174,Reduto Abigail
+23,109,Seção 109,Ceefm Pio Xi,Praca Melo Uchoa 49,219,0,0,72.0,90,25.0,36.9,0,0.102,Reduto Abigail
+23,110,Seção 110,Clube Das Maes,Rua Araao Brito S/N,188,0,0,61.0,81,24.0,31.9,0,0.144,Reduto Abigail
+23,112,Seção 112,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,286,0,0,53.0,101,41.0,36.1,0,0.084,Reduto Abigail
+23,113,Seção 113,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,293,0,0,91.0,102,46.0,50.2,0,0.015,Reduto Abigail
+23,114,Seção 114,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,271,0,0,74.0,103,26.0,39.5,0,0.204,Reduto Abigail
+23,115,Seção 115,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,280,0,0,75.0,107,36.0,42.3,0,0.032,Reduto Abigail
+23,121,Seção 121,Colegio Dom Valentino Lazzari,Avenida Eliezer Moreira S/N,224,0,0,6.0,80,48.0,19.8,0,0.469,Reduto Abigail
+23,127,Seção 127,Unidade Integrada Frederico Figueira,Rua Isaac Martins 378,304,0,0,43.0,128,42.0,33.6,0,0.024,Reduto Abigail
+23,128,Seção 128,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,255,0,0,49.0,92,36.0,32.7,0,0.077,Reduto Abigail
+23,129,Seção 129,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,274,0,0,67.0,92,46.0,41.5,0,0.193,Reduto Abigail
+23,131,Seção 131,Unidade Integrada Frederico Figueira,Rua Isaac Martins 378,301,0,0,45.0,103,44.0,34.6,0,0.039,Reduto Abigail
+23,132,Seção 132,Salao Paroquial,Rua Geroncio Falcao S/N,144,0,0,53.0,67,12.0,25.2,0,0.172,Reduto Abigail
+23,133,Seção 133,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",195,0,0,56.0,72,37.0,33.2,0,0.25,Reduto Abigail
+23,134,Seção 134,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",193,0,0,53.0,69,40.0,32.8,0,0.342,Reduto Abigail
+23,135,Seção 135,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",187,0,0,43.0,72,23.0,25.6,0,0.044,Reduto Abigail
+23,136,Seção 136,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",186,0,0,52.0,60,34.0,30.9,0,0.501,Trincheira Pessoa
+23,137,Seção 137,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",201,0,0,46.0,66,30.0,28.6,0,0.096,Reduto Abigail
+23,141,Seção 141,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,284,0,0,72.0,121,31.0,40.3,0,0.048,Reduto Abigail
+23,145,Seção 145,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,294,0,0,84.0,126,41.0,46.8,0,0.012,Reduto Abigail
+23,150,Seção 150,Unidade Escolar Francisco Doia,Povoado Lagoa Grande,67,1,0,36.0,22,32.0,21.1,1,0.396,Reduto Abigail
+23,155,Seção 155,Unidade Escolar Anizio Nogueira,Povoado Canafistula,155,1,0,60.0,77,42.0,34.2,0,0.185,Reduto Abigail
+23,166,Seção 166,Unidade Escolar Isaac Martins,Povoado Mundo Novo Dos Flores,72,1,0,40.0,17,20.0,20.1,1,0.501,Trincheira Pessoa
+23,167,Seção 167,Unidade Integrada Filomena Alves Gois,Povoado Sao Jose Do Japao,165,1,0,34.0,68,41.0,25.7,0,0.457,Reduto Abigail
+23,168,Seção 168,Unidade Escolar Jose Leonil Da Cunha Nava,Povoado Calumbi Dos Flores,106,1,0,31.0,52,10.0,16.1,0,0.176,Reduto Abigail
+23,169,Seção 169,Unidade Integrada Sidney Milhomem,"Povoado Cajazeira Br, Zona Rural Barra Do Corda/Ma",263,1,0,92.0,108,64.0,53.3,0,0.246,Reduto Abigail
+23,171,Seção 171,Unidade Integrada Adelia Falcao,Povoado Escondido,200,1,0,75.0,89,23.0,36.8,0,0.179,Reduto Abigail
+23,175,Seção 175,Unidade Escolar Manoel Marcos Ribeiro,Povoado Catete,88,1,0,34.0,32,21.0,18.8,1,0.394,Reduto Abigail
+23,177,Seção 177,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,289,0,0,91.0,101,45.0,49.8,0,0.016,Reduto Abigail
+23,179,Seção 179,Ceefm Pio Xi,Praca Melo Uchoa 49,211,0,0,60.0,90,24.0,32.4,0,0.203,Reduto Abigail
+23,181,Seção 181,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,257,0,0,83.0,99,33.0,43.5,0,0.092,Reduto Abigail
+23,183,Seção 183,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,289,0,0,86.0,121,34.0,45.8,0,0.08,Reduto Abigail
+23,185,Seção 185,Unidade Integrada Frederico Figueira,Rua Isaac Martins 378,235,0,0,47.0,114,27.0,29.4,0,0.256,Reduto Abigail
+23,191,Seção 191,Unidade Integrada Deputado Galeno Edgar Brandes,Rua Do Campo,222,0,0,76.0,63,47.0,42.9,1,0.247,Reduto Abigail
+23,193,Seção 193,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,274,0,0,83.0,101,44.0,46.4,0,0.068,Reduto Abigail
+23,194,Seção 194,Unidade Escolar Jose Macedo Da Silva,Povoado Sujape,114,1,0,32.0,53,16.0,18.0,0,0.164,Reduto Abigail
+23,200,Seção 200,Unidade Escolar Sao Raimundo,Povoado Dois Irmaos,60,1,0,3.0,27,8.0,4.7,0,0.341,Reduto Abigail
+23,202,Seção 202,Unidade Escolar Jarbas Passarinho,Povoado Patizal,99,1,0,10.0,59,11.0,9.0,0,0.16,Reduto Abigail
+23,208,Seção 208,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,282,0,0,92.0,117,44.0,49.7,0,0.062,Reduto Abigail
+23,220,Seção 220,Uema,Avenida Nelson Patury S/N,324,0,0,69.0,128,49.0,44.5,0,0.083,Reduto Abigail
+23,231,Seção 231,Unidade Integrada Deputado Galeno Edgar Brandes,Rua Do Campo,241,0,0,102.0,83,44.0,51.7,1,0.344,Reduto Abigail
+23,235,Seção 235,Uema,Avenida Nelson Patury S/N,186,0,0,79.0,66,26.0,38.3,1,0.156,Reduto Abigail
+23,241,Seção 241,Uema,Avenida Nelson Patury S/N,173,0,0,59.0,59,25.0,30.9,0,0.345,Reduto Abigail
+23,245,Seção 245,Academia Barracordense De Letras,Rua Luis Domingues S/N,133,0,0,0.0,63,18.0,8.3,0,0.215,Reduto Abigail
+23,246,Seção 246,Unidade Escolar Manoel Patricio Da Silva,Povoado Cabeceira Do Escondido,231,1,0,92.0,83,34.0,45.9,1,0.298,Reduto Abigail
+23,250,Seção 250,Uema,Avenida Nelson Patury S/N,176,0,0,73.0,57,23.0,35.3,1,0.075,Reduto Abigail
+23,251,Seção 251,Unidade Integrada Deputado Galeno Edgar Brandes,Rua Do Campo,240,0,0,98.0,70,48.0,51.1,1,0.504,Trincheira Pessoa
+23,252,Seção 252,Unidade Integrada Maria Safira Da Silva,Avenida Jose Delfino Meneses,180,0,0,56.0,69,25.0,30.2,0,0.094,Reduto Abigail
+23,253,Seção 253,Escola Indígena José Alderico Pompeu,Aldeia Nova,243,1,1,116.0,212,4.0,48.0,0,0.271,Reduto Abigail
+23,254,Seção 254,Unidade Escolar Santa Fé,Povoado Santa Fé,177,1,0,38.0,54,16.0,22.1,0,0.212,Reduto Abigail
+23,255,Seção 255,Unidade Integrada Doca Barbalho,Povoado Vila Real - Zona Rural,144,1,0,60.0,64,13.0,27.8,0,0.195,Reduto Abigail
+23,256,Seção 256,Unidade Integrada Maria Lenir Araujo Menezes,"Rua Astrogildo Wilson Machado, Sn",304,0,0,71.0,119,32.0,40.9,0,0.065,Reduto Abigail
+23,257,Seção 257,Posto De Saúde,Aldeia Colonia,255,1,0,155.0,207,8.0,62.3,0,0.088,Reduto Abigail
+23,258,Seção 258,Uema,Avenida Nelson Patury S/N,182,0,0,67.0,68,26.0,34.1,0,0.12,Reduto Abigail
+23,261,Seção 261,Unidade Integrada Deputado Galeno Edgar Brandes,Rua Do Campo,239,0,0,92.0,78,36.0,46.6,1,0.194,Reduto Abigail
+23,262,Seção 262,Unidade Integrada Da Vila Serraria,Povoado Vila Serraria,152,1,0,51.0,71,51.0,33.0,0,0.341,Reduto Abigail
+23,263,Seção 263,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,252,0,0,77.0,69,44.0,43.7,1,0.291,Reduto Abigail
+23,265,Seção 265,Unidade Escolar Zebina Pinto Arruda,Povoado Cachoeirinha,111,1,0,41.0,29,8.0,19.2,1,0.094,Reduto Abigail
+23,266,Seção 266,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",191,0,0,54.0,70,34.0,31.8,0,0.417,Reduto Abigail
+23,267,Seção 267,Unidade Integrada Maria Lenir Araujo Menezes,"Rua Astrogildo Wilson Machado, Sn",298,0,0,102.0,114,45.0,53.8,0,0.062,Reduto Abigail
+23,268,Seção 268,Escola Indigena Uwànog,Aldeia Mainumy,246,1,1,163.0,220,2.0,63.4,0,0.278,Reduto Abigail
+23,269,Seção 269,Escola Indigena Bibiana De Sousa,Aldeia Kwarahy,259,1,1,217.0,237,0.0,81.6,0,0.248,Reduto Abigail
+23,271,Seção 271,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,262,0,0,91.0,78,59.0,51.9,1,0.502,Trincheira Pessoa
+23,272,Seção 272,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",194,0,0,0.0,74,33.0,13.6,0,0.295,Reduto Abigail
+23,273,Seção 273,Unidade Escolar Mucunã,"Povoado Mucunã - Zona Rural, Barra Do Corda/Ma",118,1,0,43.0,25,10.0,20.5,1,0.043,Reduto Abigail
+23,275,Seção 275,Unidade Integrada Genival Alves De Olvieira,"Povoado São Carlos, Zona Rural - Barra Do Corda/Ma",98,1,0,26.0,62,18.0,15.8,0,0.473,Reduto Abigail
+23,276,Seção 276,Unidade Integrada Rosalina Franco Mota,"Povoado Cana Brava, Zona Rural - Barra Do Corda/Ma",128,1,0,28.0,85,0.0,13.7,0,0.225,Reduto Abigail
+23,277,Seção 277,Unidade Integrada Rudson Monte Arruda,"Povoado Novo Oriente, Zona Rural - Barra Do Corda/Ma",88,1,0,40.0,48,4.0,17.2,0,0.065,Reduto Abigail
+23,278,Seção 278,Unidade Escolar Novo Brejo,"Povoado Novo Brejo, Zona Rural - Barra Do Corda/Ma",142,1,0,45.0,73,20.0,24.1,0,0.14,Reduto Abigail
+23,279,Seção 279,Unidade Escolar  José Sarney,Povoado Baixão Fundo,57,1,0,13.0,28,3.0,6.9,0,0.277,Reduto Abigail
+23,282,Seção 282,Uema,Avenida Nelson Patury S/N,220,0,0,88.0,88,28.0,42.9,0,0.177,Reduto Abigail
+23,283,Seção 283,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",175,0,0,41.0,64,21.0,24.1,0,0.122,Reduto Abigail
+23,290,Seção 290,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",199,0,0,52.0,83,30.0,30.5,0,0.24,Reduto Abigail
+23,300,Seção 300,Posto De Saúde,Aldeia Colonia,240,1,0,0.0,189,13.0,10.9,0,0.183,Reduto Abigail
+23,303,Seção 303,Unidade Integrada Deputado Galeno Edgar Brandes,Rua Do Campo,239,0,0,93.0,77,51.0,50.1,1,0.554,Trincheira Pessoa
+23,305,Seção 305,Unidade Integrada Maria Lenir Araujo Menezes,"Rua Astrogildo Wilson Machado, Sn",305,0,0,90.0,122,29.0,46.7,0,0.115,Reduto Abigail
+23,306,Seção 306,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,258,0,0,74.0,78,48.0,43.7,0,0.46,Reduto Abigail
+23,317,Seção 317,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,281,0,0,81.0,111,41.0,45.4,0,0.083,Reduto Abigail
+23,322,Seção 322,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,241,0,0,72.0,88,45.0,41.8,0,0.428,Reduto Abigail
+23,325,Seção 325,Centro De Ensino Prof. João Pedro Freitas Da Silva,"Avenida Pedro Neiva De Santana, Sn",182,0,0,56.0,81,25.0,30.2,0,0.343,Reduto Abigail
+23,327,Seção 327,Unidade Integrada Maria Lenir Araujo Menezes,"Rua Astrogildo Wilson Machado, Sn",273,0,0,89.0,105,33.0,46.1,0,0.038,Reduto Abigail
+23,328,Seção 328,Unidade Integrada Isautina Pereira Araujo,"Rua Principal, Vila Mariano, Zona Urbana - Barra Do Corda",215,0,0,70.0,59,53.0,42.0,1,0.489,Reduto Abigail
+23,329,Seção 329,Escola Indígena Ireno Rosa,Aldeia Indígena Três Irmãos,281,1,1,259.0,141,97.0,116.8,1,0.18,Reduto Abigail
+23,330,Seção 330,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,230,0,0,67.0,69,52.0,41.3,0,0.613,Trincheira Pessoa
+23,331,Seção 331,Unidade Integrada Deputado Galeno Edgar Brandes,Rua Do Campo,241,0,0,86.0,73,43.0,46.1,1,0.373,Reduto Abigail
+23,332,Seção 332,Centro Comunitário Da Associação Dos Produtores Rurais,Povoado Lagoa Da Floresta,76,1,0,15.0,47,20.0,11.8,0,0.383,Reduto Abigail
+23,333,Seção 333,Escola Do Loteamento Cajueiro,Loteamento Cajueiro - Zona Rural,80,1,0,0.0,56,2.0,3.1,0,0.184,Reduto Abigail
+23,334,Seção 334,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,269,0,0,88.0,105,30.0,45.0,0,0.041,Reduto Abigail
+23,336,Seção 336,Escola Maria De Jesus Pompeu,Aldeia Taboca - Zona Rural,91,1,0,65.0,73,0.0,24.9,0,0.145,Reduto Abigail
+23,337,Seção 337,Unidade Integrada Isautina Pereira Araujo,"Rua Principal, Vila Mariano, Zona Urbana - Barra Do Corda",240,0,0,57.0,81,36.0,34.9,0,0.227,Reduto Abigail
+23,338,Seção 338,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,234,0,0,84.0,85,46.0,45.8,0,0.327,Reduto Abigail
+23,340,Seção 340,Unidade Escolar Duque De Caxias,Povoado Cajueiro,65,1,0,20.0,30,4.0,9.8,0,0.289,Reduto Abigail
+23,341,Seção 341,Unidade Integrada Joao Lopes Barbosa,Povoado Sumauma,205,1,0,75.0,113,33.0,39.1,0,0.366,Reduto Abigail
+23,343,Seção 343,Unidade Escolar Ademar Pereira De Sousa,Povoado Centro Do Barroso,49,1,0,29.0,14,0.0,11.4,1,0.158,Reduto Abigail
+23,344,Seção 344,Unidade Escolar Aldenora Pereira Da Silva,Povoado Centro Do Ze Antonio,91,1,0,25.0,64,4.0,12.3,0,0.088,Reduto Abigail
+23,345,Seção 345,Centro Educacional Manoel Mariano De Sousa,Av. Roseana Sarney S/N,277,0,0,31.0,117,60.0,32.5,0,0.35,Reduto Abigail
+23,347,Seção 347,Centro Educacional Manoel Mariano De Sousa,Av. Roseana Sarney S/N,272,0,0,0.0,117,38.0,17.3,0,0.059,Reduto Abigail
+23,349,Seção 349,Centro Educacional Manoel Mariano De Sousa,Av. Roseana Sarney S/N,288,0,0,0.0,124,56.0,21.6,0,0.086,Reduto Abigail
+23,351,Seção 351,Centro Educacional Manoel Mariano De Sousa,Av. Roseana Sarney S/N,303,0,0,0.0,116,59.0,22.8,0,0.224,Reduto Abigail
+23,353,Seção 353,Centro Educacional Manoel Mariano De Sousa,Av. Roseana Sarney S/N,295,0,0,0.0,118,47.0,20.0,0,0.007,Reduto Abigail
+23,355,Seção 355,Centro Educacional Manoel Mariano De Sousa,Av. Roseana Sarney S/N,158,0,0,0.0,72,24.0,10.4,0,0.158,Reduto Abigail
+23,357,Seção 357,Unidade Integrada Enoc Vieira,Rua Rio Purus,243,0,0,78.0,79,51.0,45.2,0,0.439,Reduto Abigail
+23,358,Seção 358,Unidade Integrada Enoc Vieira,Rua Rio Purus,215,0,0,72.0,69,40.0,39.9,1,0.226,Reduto Abigail
+23,359,Seção 359,Unidade Integrada Enoc Vieira,Rua Rio Purus,227,0,0,80.0,69,48.0,44.7,1,0.386,Reduto Abigail
+23,360,Seção 360,Unidade Integrada Enoc Vieira,Rua Rio Purus,222,0,0,71.0,56,54.0,42.7,1,0.379,Reduto Abigail
+23,361,Seção 361,Igreja Nossa Senhora Desatadora Dos Nós,Povoado Esperantina,119,1,0,49.0,51,26.0,26.0,0,0.321,Reduto Abigail
+23,362,Seção 362,Unidade Integrada Santo Antonio,Nova Tresidela Vila Nenzin - Zona Urbana,210,0,0,99.0,73,31.0,46.9,1,0.212,Reduto Abigail
+23,363,Seção 363,Unidade Integrada Santo Antonio,Nova Tresidela Vila Nenzin - Zona Urbana,240,0,0,102.0,87,25.0,47.6,1,0.254,Reduto Abigail
+23,364,Seção 364,Unidade Integrada Santo Antonio,Nova Tresidela Vila Nenzin - Zona Urbana,223,0,0,73.0,93,25.0,37.3,0,0.041,Reduto Abigail
+23,365,Seção 365,Unidade Integrada Santo Antonio,Nova Tresidela Vila Nenzin - Zona Urbana,204,0,0,86.0,84,20.0,40.0,1,0.112,Reduto Abigail
+23,366,Seção 366,Unidade Escolar Antonio Ismar Tavares Muniz,Povoado Barro Branco,231,1,0,98.0,87,39.0,48.9,1,0.406,Reduto Abigail
+23,368,Seção 368,Unidade Integrada Rui Barbosa,Povoado Lagoa Do Socorro,155,1,0,45.0,90,27.0,26.1,0,0.169,Reduto Abigail
+23,369,Seção 369,Unidade Escolar Raimundo Januário De Azevedo,Povoado Mamuir - Zona Rural,110,1,0,44.0,66,8.0,20.2,0,0.221,Reduto Abigail
+23,370,Seção 370,Unidade Escolar Jose Nogueira Arruda,Rua Rio Jutai S/N,305,0,0,105.0,133,60.0,58.2,0,0.165,Reduto Abigail
+23,371,Seção 371,Unidade Escolar Jose Nogueira Arruda,Rua Rio Jutai S/N,281,0,0,91.0,123,35.0,47.5,0,0.129,Reduto Abigail
+23,372,Seção 372,Unidade Escolar Jose Nogueira Arruda,Rua Rio Jutai S/N,309,0,0,94.0,123,68.0,56.4,0,0.114,Reduto Abigail
+23,373,Seção 373,Unidade Escolar Jose Nogueira Arruda,Rua Rio Jutai S/N,280,0,0,82.0,125,49.0,47.4,0,0.189,Reduto Abigail
+23,375,Seção 375,Unidade Escolar Teodorico Anacleto Da Silva,Povoado Cajazeira Ii,198,1,0,97.0,56,18.0,43.1,1,0.314,Reduto Abigail
+23,377,Seção 377,Unidade Integrada Ismael Mousalem Salomao,Povoado Centro Dos Ramos,205,1,0,97.0,76,32.0,46.2,1,0.158,Reduto Abigail
+23,378,Seção 378,Unidade Integrada Ismael Mousalem Salomao,Povoado Centro Dos Ramos,196,1,0,76.0,62,44.0,41.4,1,0.188,Reduto Abigail
+23,379,Seção 379,Unidade Integrada Ismael Mousalem Salomao,Povoado Centro Dos Ramos,181,1,0,77.0,58,36.0,39.6,1,0.235,Reduto Abigail
+23,380,Seção 380,Unidade Escolar Inacio Cruz,Povoado Montevideu,124,1,0,43.0,50,33.0,25.6,0,0.477,Reduto Abigail
+23,381,Seção 381,Unidade Integrada Isabel Cafeteira,Avenida Roseana Sarney S/N,191,0,0,54.0,92,36.0,32.2,0,0.285,Reduto Abigail
+23,382,Seção 382,Unidade Integrada Isabel Cafeteira,Avenida Roseana Sarney S/N,219,0,0,74.0,87,36.0,39.9,0,0.236,Reduto Abigail
+23,383,Seção 383,Unidade Integrada Isabel Cafeteira,Avenida Roseana Sarney S/N,193,0,0,76.0,69,44.0,41.3,1,0.436,Reduto Abigail
+23,384,Seção 384,Unidade Integrada Isabel Cafeteira,Avenida Roseana Sarney S/N,211,0,0,60.0,99,39.0,35.5,0,0.368,Reduto Abigail
+23,385,Seção 385,Unidade Integrada Isabel Cafeteira,Avenida Roseana Sarney S/N,197,0,0,63.0,89,30.0,34.2,0,0.091,Reduto Abigail
+23,386,Seção 386,Unidade Integrada Isabel Cafeteira,Avenida Roseana Sarney S/N,212,0,0,73.0,83,40.0,40.1,0,0.451,Reduto Abigail
+23,387,Seção 387,Unidade Integrada Deusdedith Cortez Vieira Da Silva,Rua Rio Branco S/N,172,0,0,53.0,61,33.0,30.6,0,0.446,Reduto Abigail
+23,389,Seção 389,Unidade Integrada Deusdedith Cortez Vieira Da Silva,Rua Rio Branco S/N,178,0,0,56.0,72,22.0,29.5,0,0.253,Reduto Abigail
+23,391,Seção 391,Unidade Integrada Antonio Rocha Da Silva,Povoado São Gonçalo,193,1,0,57.0,90,19.0,29.7,0,0.197,Reduto Abigail
+23,392,Seção 392,Unidade Integrada Antonio Rocha Da Silva,Povoado São Gonçalo,191,1,0,58.0,95,23.0,30.8,0,0.087,Reduto Abigail
+23,393,Seção 393,Unidade Integrada Antonio Rocha Da Silva,Povoado São Gonçalo,164,1,0,40.0,68,15.0,22.2,0,0.115,Reduto Abigail
+23,394,Seção 394,Unidade Integrada Manoel Martins Jorge,Povoado Três Lagoas Do Manduca,224,1,0,91.0,119,11.0,40.5,0,0.099,Reduto Abigail
+23,395,Seção 395,Unidade Integrada Manoel Martins Jorge,Povoado Três Lagoas Do Manduca,235,1,0,93.0,129,13.0,41.9,0,0.312,Reduto Abigail
+23,396,Seção 396,Unidade Integrada Manoel Martins Jorge,Povoado Três Lagoas Do Manduca,209,1,0,78.0,120,16.0,36.6,0,0.333,Reduto Abigail
+23,397,Seção 397,Unidade Integrada Manoel Martins Jorge,Povoado Três Lagoas Do Manduca,224,1,0,85.0,123,11.0,38.4,0,0.077,Reduto Abigail
+23,398,Seção 398,Unidade Integrada Jose Teles,Avenida Roseana Sarney S/N,176,0,0,80.0,71,30.0,39.1,1,0.265,Reduto Abigail
+23,399,Seção 399,Unidade Integrada Jose Teles,Avenida Roseana Sarney S/N,170,0,0,51.0,63,26.0,28.4,0,0.192,Reduto Abigail
+23,400,Seção 400,Unidade Integrada Jose Teles,Avenida Roseana Sarney S/N,175,0,0,56.0,71,23.0,29.6,0,0.15,Reduto Abigail
+23,401,Seção 401,Unidade Integrada Jose Teles,Avenida Roseana Sarney S/N,170,0,0,71.0,65,28.0,35.5,1,0.084,Reduto Abigail
+23,402,Seção 402,Unidade Integrada Almir Silva,Povoado Agrovila Dos Currais,271,1,0,94.0,139,36.0,48.3,0,0.27,Reduto Abigail
+23,404,Seção 404,Unidade Integrada Osvaldo Cruz,Povoado Cacau,262,1,0,101.0,179,21.0,47.2,0,0.268,Reduto Abigail
+23,406,Seção 406,Unidade Escolar Salviano Jose De Maria,Povoado Desejo,61,1,0,36.0,26,19.0,18.1,1,0.643,Trincheira Pessoa
+23,407,Seção 407,Unidade Integrada Sinezio Teixeira Mendes,Povoado Ipiranga,235,1,0,79.0,90,73.0,49.9,0,0.428,Reduto Abigail
+23,408,Seção 408,Unidade Integrada Sinezio Teixeira Mendes,Povoado Ipiranga,222,1,0,65.0,82,56.0,41.2,0,0.544,Trincheira Pessoa
+23,409,Seção 409,Unidade Integrada Sinezio Teixeira Mendes,Povoado Ipiranga,233,1,0,81.0,88,66.0,49.0,0,0.419,Reduto Abigail
+23,410,Seção 410,Unidade Integrada Sinezio Teixeira Mendes,Povoado Ipiranga,220,1,0,78.0,77,68.0,48.0,1,0.438,Reduto Abigail
+23,411,Seção 411,Unidade Escolar Raimundo Ferreira Lima,Povoado Lagoa Comprida,54,1,0,18.0,29,6.0,9.1,0,0.191,Reduto Abigail
+23,412,Seção 412,Unidade Integrada Humberto De Campos,Povoado Agrovila Boa Sorte,246,1,0,105.0,87,13.0,46.3,1,0.156,Reduto Abigail
+23,413,Seção 413,Unidade Integrada Humberto De Campos,Povoado Agrovila Boa Sorte,234,1,0,100.0,92,20.0,45.7,1,0.086,Reduto Abigail
+23,414,Seção 414,Unidade Escolar Coelho Neto,Povoado Farinha,104,1,0,34.0,59,9.0,16.8,0,0.265,Reduto Abigail
+23,415,Seção 415,Unidade Escolar Martins Vieira,Povoado Lagoa Do Angico,159,1,0,46.0,107,19.0,24.8,0,0.089,Reduto Abigail
+23,416,Seção 416,Unidade Integrada Professora Otávia Bandeira,Rua Rio Madeira S/N,265,0,0,84.0,90,60.0,49.8,0,0.565,Trincheira Pessoa
+23,419,Seção 419,Unidade Escolar Cicero Rodrigues Pacheco,Povoado Sao Jose Do Mearim,219,1,0,62.0,114,31.0,34.8,0,0.289,Reduto Abigail
+23,420,Seção 420,Unidade Escolar Cicero Rodrigues Pacheco,Povoado Sao Jose Do Mearim,203,1,0,52.0,107,34.0,31.5,0,0.303,Reduto Abigail
+23,421,Seção 421,Unidade Escolar Cicero Rodrigues Pacheco,Povoado Sao Jose Do Mearim,195,1,0,55.0,115,24.0,30.1,0,0.163,Reduto Abigail
+23,422,Seção 422,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,221,0,0,88.0,91,28.0,42.9,0,0.114,Reduto Abigail
+23,423,Seção 423,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,228,0,0,73.0,88,47.0,42.1,0,0.364,Reduto Abigail
+23,424,Seção 424,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,237,0,0,78.0,95,42.0,43.1,0,0.411,Reduto Abigail
+23,425,Seção 425,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,226,0,0,78.0,89,49.0,44.2,0,0.38,Reduto Abigail
+23,426,Seção 426,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,230,0,0,84.0,96,49.0,46.3,0,0.353,Reduto Abigail
+23,427,Seção 427,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,248,0,0,88.0,94,53.0,49.1,0,0.612,Trincheira Pessoa
+23,428,Seção 428,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,233,0,0,92.0,104,40.0,47.2,0,0.242,Reduto Abigail
+23,429,Seção 429,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,233,0,0,96.0,93,46.0,49.8,1,0.373,Reduto Abigail
+23,430,Seção 430,Unidade Integrada Ardaleao Americo Pires,Rua Rio Jurua S/N,238,0,0,99.0,101,46.0,51.0,0,0.363,Reduto Abigail
+23,431,Seção 431,Unidade Escolar Getulio Vargas,Povoado Centro Do Marcolino,268,1,0,136.0,109,52.0,65.7,1,0.204,Reduto Abigail
+23,432,Seção 432,Unidade Integrada José Araújo Bezerra,Rua Da Assembleia De Deus,244,0,0,103.0,74,45.0,52.3,1,0.36,Reduto Abigail
+23,433,Seção 433,Unidade Integrada José Araújo Bezerra,Rua Da Assembleia De Deus,242,0,0,110.0,78,52.0,56.1,1,0.593,Trincheira Pessoa
+23,434,Seção 434,Unidade Integrada Enoc Vieira,Rua Do Campo Do Negão,274,0,0,103.0,98,60.0,56.5,1,0.491,Reduto Abigail
+23,435,Seção 435,Unidade Integrada Enoc Vieira,Rua Do Campo Do Negão,260,0,0,99.0,80,51.0,52.8,1,0.281,Reduto Abigail
+23,436,Seção 436,Unidade Integrada Enoc Vieira,Rua Do Campo Do Negão,251,0,0,92.0,88,46.0,49.1,1,0.374,Reduto Abigail
+23,437,Seção 437,Unidade Escolar Jose Lopes Xavier,Povoado Centro Do Meio,143,1,0,43.0,42,55.0,30.9,1,0.445,Reduto Abigail
+23,438,Seção 438,Unidade Integrada Jose Ferreira Neto,Povoado Naru,330,1,0,56.0,140,46.0,39.7,0,0.1,Reduto Abigail
+23,441,Seção 441,Centro De Ensino Arlindo Ferreira De Lucena,"Rua Rio Tapajós, S/N",281,0,0,109.0,98,66.0,60.0,1,0.261,Reduto Abigail
+23,442,Seção 442,Centro De Ensino Arlindo Ferreira De Lucena,"Rua Rio Tapajós, S/N",309,0,0,110.0,124,65.0,61.1,0,0.109,Reduto Abigail
+23,443,Seção 443,Centro De Ensino Arlindo Ferreira De Lucena,"Rua Rio Tapajós, S/N",281,0,0,112.0,123,46.0,56.8,0,0.031,Reduto Abigail
+23,444,Seção 444,Centro De Ensino Arlindo Ferreira De Lucena,"Rua Rio Tapajós, S/N",285,0,0,104.0,112,64.0,58.1,0,0.269,Reduto Abigail
+23,445,Seção 445,Unidade Integrada Antonio Caneco De Medeiros,Povoado Barro Branco,276,1,0,126.0,97,36.0,59.2,1,0.175,Reduto Abigail
+23,447,Seção 447,Unidade Integrada Antonio Caneco De Medeiros,Povoado Barro Branco,285,1,0,118.0,111,26.0,54.7,1,0.097,Reduto Abigail
+23,449,Seção 449,Unidade Integrada Antonio Caneco De Medeiros,Povoado Barro Branco,137,1,0,55.0,51,19.0,27.1,1,0.16,Reduto Abigail
+23,450,Seção 450,Unidade Escolar Joaquim Roseno,Povoado Cruzeiro,117,1,0,38.0,71,18.0,20.5,0,0.291,Reduto Abigail
+23,451,Seção 451,Ceefm Dom Marcelino De Milao,Avenida Jose Delfino De Meneses,272,0,0,85.0,121,38.0,45.8,0,0.151,Reduto Abigail
+23,452,Seção 452,Centro De Ensino Arlindo Ferreira De Lucena,"Rua Rio Tapajós, S/N",293,0,0,45.0,112,68.0,39.4,0,0.388,Reduto Abigail
+23,453,Seção 453,Unidade Integrada José Araújo Bezerra,Rua Da Assembleia De Deus,254,0,0,31.0,101,40.0,27.5,0,0.096,Reduto Abigail
+23,454,Seção 454,Unidade Integrada Deputado Galeno Edgar Brandes,Rua Do Campo,232,0,0,0.0,81,46.0,17.6,0,0.552,Trincheira Pessoa
+23,455,Seção 455,Unidade Escolar Maria Emidia Brandes Caldas,Rua Projetada S/N,244,0,0,0.0,93,42.0,17.2,0,0.263,Reduto Abigail
+23,457,Seção 457,Unidade Integrada Isautina Pereira Araujo,"Rua Principal, Vila Mariano, Zona Urbana - Barra Do Corda",244,0,0,0.0,93,40.0,16.7,0,0.245,Reduto Abigail
+23,458,Seção 458,Unidade Integrada Santo Antonio,Nova Tresidela Vila Nenzin - Zona Urbana,239,0,0,0.0,90,31.0,14.7,0,0.154,Reduto Abigail
+23,459,Seção 459,Unidade Escolar Vila Duas Cachoeiras,Povoado Duas Cachoeiras - Zona Rural,117,1,0,0.0,81,10.0,6.1,0,0.391,Reduto Abigail
+23,460,Seção 460,Unidade Integrada João Martins Jorge,Povoado Cateté De Cima Zona Rural,76,1,0,0.0,24,6.0,3.9,0,0.172,Reduto Abigail
