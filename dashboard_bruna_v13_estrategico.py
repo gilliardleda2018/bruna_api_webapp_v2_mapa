@@ -12,10 +12,15 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import plotly.io as pio
 import streamlit as st
 
 PASTA = Path(__file__).resolve().parent
-px.defaults.template = "plotly_white"  # gráficos em fundo branco dentro dos cartões
+pio.templates["painel"] = go.layout.Template(pio.templates["plotly_white"])
+pio.templates["painel"].layout.paper_bgcolor = "rgba(0,0,0,0)"  # deixa o degradê da moldura aparecer
+pio.templates["painel"].layout.plot_bgcolor = "rgba(0,0,0,0)"
+pio.templates.default = "painel"
+px.defaults.template = "painel"
 ELEICAO = pd.Timestamp("2026-10-04")
 # Identidade visual da campanha (site oficial bruna-pessoa-15800): marinho + magenta
 ROSA, MARINHO, AMARELO, CINZA, VERMELHO = "#E02597", "#122545", "#F2A900", "#8A8F98", "#E8702A"
@@ -110,10 +115,14 @@ h1, h2, h3, h4 {font-family: 'Archivo', Arial, sans-serif !important; color: #12
 [data-testid="stMetric"] {border-radius: 14px; padding: 10px 14px; box-shadow: 0 2px 8px rgba(18,37,69,.05);
                           background: #FDEFF7; border: 1px solid #F2C4DE;}
 [data-testid="stColumn"]:nth-child(even) [data-testid="stMetric"] {background: #EDF3FC; border-color: #C8DAF3;}
-[data-testid="stPlotlyChart"] {background: #FFFFFF; border: 1px solid #F2C4DE; border-top: 4px solid #E02597;
-                               border-radius: 14px; padding: 6px; box-shadow: 0 2px 8px rgba(224,37,151,.06);}
-[data-testid="stDataFrame"] {background: #FFFFFF; border: 1px solid #C8DAF3; border-top: 4px solid #6D93D1;
-                             border-radius: 14px; padding: 6px; box-shadow: 0 2px 8px rgba(18,37,69,.06);}
+/* componentes (gráficos e tabelas) alternam fúcsia × azul; separador no topo + degradê sutil descendo */
+[class*="st-key-comp_rosa"], [class*="st-key-comp_azul"] {border-radius: 14px; padding: 10px 10px 8px;}
+[class*="st-key-comp_rosa"] {border: 1px solid #F2C4DE; border-top: 4px solid #E02597;
+    background: linear-gradient(180deg, #FBE3F0 0px, #FFF7FB 110px, #FFFFFF 260px);
+    box-shadow: 0 2px 8px rgba(224,37,151,.07);}
+[class*="st-key-comp_azul"] {border: 1px solid #C8DAF3; border-top: 4px solid #6D93D1;
+    background: linear-gradient(180deg, #E2ECFA 0px, #F6F9FE 110px, #FFFFFF 260px);
+    box-shadow: 0 2px 8px rgba(18,37,69,.07);}
 [data-testid="stVerticalBlockBorderWrapper"] {background: #FFFFFF; border-color: #C8DAF3 !important;}
 .stTabs [data-baseweb="tab-list"] {background: linear-gradient(90deg, #EDF3FC, #FDEFF7); border-radius: 12px;
                                    padding: 0 8px; border: 1px solid #E3D6EC;}
@@ -127,7 +136,36 @@ h1, h2, h3, h4 {font-family: 'Archivo', Arial, sans-serif !important; color: #12
 """, unsafe_allow_html=True)
 
 
-ZEBRA_AZUL, ZEBRA_BRANCO = "#EAF1FB", "#FFFFFF"
+# cores de cada moldura: (tom do topo das linhas, zebra)
+TONS = {"rosa": ("#FBE3F0", "#FCEEF6"), "azul": ("#E2ECFA", "#EDF3FC")}
+_contador = [0]  # zera a cada execução do script
+
+
+def moldura():
+    """Container com a próxima cor da alternância fúcsia/azul (classe CSS st-key-comp_<cor>_<n>)."""
+    i = _contador[0]
+    _contador[0] += 1
+    cor = "rosa" if i % 2 == 0 else "azul"
+    return st.container(key=f"comp_{cor}_{i}"), cor
+
+
+def grafico(fig, **kwargs):
+    caixa, _ = moldura()
+    with caixa:
+        return st.plotly_chart(fig, **kwargs)
+
+
+def _misturar(hex_a, hex_b, t):
+    a = [int(hex_a[i:i + 2], 16) for i in (1, 3, 5)]
+    b = [int(hex_b[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#" + "".join(f"{round(x + (y - x) * t):02x}" for x, y in zip(a, b))
+
+
+def _cor_linha(i, cor):
+    """Degradê sutil do topo para baixo (nas 8 primeiras linhas) + zebra nas linhas ímpares."""
+    topo, zebra = TONS[cor]
+    fundo = _misturar(topo, "#FFFFFF", min(i / 8, 1.0))
+    return _misturar(fundo, zebra, 0.85) if i % 2 else fundo
 
 
 def _fmt_numero(casas):
@@ -139,7 +177,7 @@ def _fmt_numero(casas):
 
 
 def tabela(df, **kwargs):
-    """st.dataframe com linhas alternadas em azul claro e números no padrão brasileiro."""
+    """st.dataframe na moldura alternada, linhas zebradas na cor da moldura e números no padrão brasileiro."""
     kwargs.pop("column_config", None)  # a formatação passa a ser feita pelo Styler
     df = df.reset_index(drop=True)
     formatos = {}
@@ -147,12 +185,13 @@ def tabela(df, **kwargs):
         if pd.api.types.is_numeric_dtype(df[c]) and not pd.api.types.is_bool_dtype(df[c]):
             decimal = any(t in str(c) for t in ("%", "por seção", "Km"))
             formatos[c] = _fmt_numero(1 if decimal else 0)
+    caixa, cor = moldura()
     estilo = (df.style.format(formatos)
-              .apply(lambda linha: [f"background-color: {ZEBRA_AZUL if linha.name % 2 else ZEBRA_BRANCO}"]
-                     * len(linha), axis=1))
+              .apply(lambda linha: [f"background-color: {_cor_linha(linha.name, cor)}"] * len(linha), axis=1))
     kwargs.setdefault("hide_index", True)
     kwargs.setdefault("width", "stretch")
-    return st.dataframe(estilo, **kwargs)
+    with caixa:
+        return st.dataframe(estilo, **kwargs)
 
 
 @st.cache_data
@@ -367,7 +406,7 @@ incerteza do mapa — é onde uma visita vale mais.</div>
         fig.update_layout(title="Distribuição dos 20 mil cenários simulados", height=440,
                           xaxis_title="Votos totais da Bruna", yaxis_title="Cenários", bargap=.05,
                           margin=dict(t=60, b=120, l=40, r=10))
-        st.plotly_chart(fig, width="stretch")
+        grafico(fig, width="stretch")
     with col_b:
         st.markdown("**Adversários diretos na região**")
         adv = pd.DataFrame([{"Candidato": k2, "Votos 2022": n(v["votos_2022"]) if v["votos_2022"] else "—",
@@ -422,7 +461,7 @@ with abas[1]:
                       map_style="carto-positron")
     fig.update_traces(mode="lines+markers", marker=dict(size=11))
     fig.update_layout(margin=dict(t=10, b=0, l=0, r=0), legend_title_text="")
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
 
 # ----------------------------------------------------------------------
 # 3. Lideranças
@@ -494,7 +533,7 @@ Nesses bairros o trabalho é <b>porta a porta com as lideranças do bairro</b>, 
                 orientation="h", marker_color=VERMELHO, opacity=.6)
     fig.update_layout(barmode="group", height=760, yaxis=dict(autorange="reversed", title=""),
                       xaxis_title="Votos", legend=dict(orientation="h", y=1.03), margin=dict(t=30, l=10))
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
     st.markdown("**Bairros**")
     tabela(tun_bairros.rename(columns={
         "bairro": "Bairro", "secoes": "Seções", "aptos_2024": "Eleitores aptos", "fernando_2024": "Fernando 2024",
@@ -560,7 +599,7 @@ Não é jogo pra virar em casa dela — é jogo pra <b>não tomar goleada</b> e 
     fig.update_layout(title="Tuntum, bairro a bairro — o estádio da Bruna", barmode="group", height=460,
                       yaxis=dict(autorange="reversed", title=""), xaxis_title="Votos",
                       legend=dict(orientation="h", y=-0.15), margin=dict(t=50, l=10))
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
 
     # ---------- as trincheiras dentro de Barra do Corda ----------
     st.markdown("### 🚩 As trincheiras: onde a gente já ganhou dela dentro de Barra do Corda")
@@ -585,7 +624,7 @@ Não é jogo pra virar em casa dela — é jogo pra <b>não tomar goleada</b> e 
                     name="empate", hoverinfo="skip")
     fig.update_layout(title="Cada bolinha é um local de votação · acima da linha = ponto do grupo Pessoa",
                       legend=dict(orientation="h", y=-0.2), margin=dict(t=50))
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
 
     # ---------- 2º tempo: campo neutro ----------
     st.markdown("### 🌾 Segundo tempo: o campo neutro (onde o jogo se decide de verdade)")
@@ -607,7 +646,7 @@ Não é jogo pra virar em casa dela — é jogo pra <b>não tomar goleada</b> e 
                  labels={"saldo": "Saldo projetado (Bruna − Abigail)", "municipio": "", "situacao": ""})
     fig.update_layout(title="Saldo de votos por município do campo neutro", legend=dict(orientation="h", y=-0.08),
                       margin=dict(t=50, l=10))
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
     acirr = neutro[neutro.situacao == "🤝 Disputa acirrada"].municipio.tolist()
     if acirr:
         st.markdown(f"**Jogo pegado, bola dividida:** {', '.join(acirr)}. Uma visita aqui pode virar o placar.")
@@ -682,7 +721,7 @@ with abas[5]:
                  color_continuous_scale=ESCALA_ROSA, text_auto=",.0f", height=max(320, 26 * min(len(grp), 25)),
                  labels={"projecao": "Votos projetados", agrupar: "", "pct": "% dos votantes"})
     fig.update_layout(yaxis=dict(autorange="reversed"), margin=dict(t=10, l=10))
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
     st.markdown(f"**Por {rotulo.lower()}**")
     tabela(grp.rename(columns={agrupar: rotulo, "secoes": "Seções", "votantes": "Votantes",
                                      "projecao": "Projeção", "p10": "Mínimo provável", "p90": "Máximo provável",
@@ -736,7 +775,7 @@ with abas[6]:
     fig.for_each_trace(lambda t: t.update(name={"eleitor_eric_a_converter": "A converter",
                                                 "votos_fieis_grupo": "Voto do grupo"}[t.name]))
     fig.update_layout(margin=dict(t=20, b=40))
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
     st.markdown("**Ações de baixo custo para esta semana:** carro de som e santinho com a frase *\"Fernando agora é "
                 "Bruna\"*; vídeo curto do prefeito pedindo voto na irmã; listas de transmissão de WhatsApp das "
                 "lideranças que trabalharam para o Eric em 2022.")
@@ -766,7 +805,7 @@ with abas[7]:
         fig = px.choropleth_map(base, color=col, hover_data=hover, color_continuous_scale="Reds",
                                 range_color=(0, 40), **comum)
     fig.update_layout(margin=dict(t=0, b=0, l=0, r=0), legend_title_text="")
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
 
 # ----------------------------------------------------------------------
 # 6. Dia da eleição
@@ -813,7 +852,7 @@ with abas[9]:
     fig = px.bar(comp, x="Votos", y="Candidato", orientation="h", height=300, text_auto=",.0f",
                  color="Candidato", color_discrete_sequence=[MARINHO, AMARELO, VERMELHO, "#8e44ad", ROSA])
     fig.update_layout(showlegend=False, margin=dict(t=10, b=10), yaxis_title="")
-    st.plotly_chart(fig, width="stretch")
+    grafico(fig, width="stretch")
 
 # ----------------------------------------------------------------------
 # 8. Simulador
