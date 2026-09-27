@@ -950,31 +950,44 @@ if SECAO == 10:
 # 9. Pergunte à estratégia (Gemini)
 # ----------------------------------------------------------------------
 GEMINI_CHAVE = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-GEMINI_MODELO_PEDIDO = os.environ.get("GEMINI_MODEL", "auto")  # "auto" = Flash estável mais novo da chave
-GEMINI_MODELO_RESERVA = "gemini-2.5-flash"
+GEMINI_MODELO_PEDIDO = (os.environ.get("GEMINI_MODEL") or "auto").strip()  # "auto" = melhor Flash da chave
+EXCLUIR = ("image", "tts", "audio", "live", "embedding", "aqa", "imagen", "veo", "learnlm", "robotics", "computer")
 
 
-@st.cache_data(ttl=6 * 3600, show_spinner=False)
-def modelo_gemini(chave, pedido):
-    """Com GEMINI_MODEL=auto, lista os modelos da chave e escolhe o Flash estável de versão mais alta."""
-    if pedido != "auto":
-        return pedido
+@st.cache_data(ttl=3600, show_spinner=False)
+def modelos_da_chave(chave):
+    """Nomes dos modelos que a chave pode usar para gerar texto. Erros NÃO ficam em cache (a exceção sobe)."""
+    from google import genai
+    nomes = []
+    for m in genai.Client(api_key=chave).models.list():
+        acoes = m.supported_actions or []
+        if acoes and "generateContent" not in acoes:
+            continue
+        nomes.append((m.name or "").split("/")[-1])
+    return nomes
+
+
+def _nota(nome):
+    """Ordena candidatos: Flash > outros; apelido '-latest'; completo > 'lite'; estável > preview; versão maior."""
+    versao = re.search(r"(\d+(?:\.\d+)?)", nome)
+    return ("flash" in nome, "gemini" in nome and "gemma" not in nome, nome.endswith("latest"),
+            "lite" not in nome, not any(t in nome for t in ("preview", "exp")),
+            float(versao.group(1)) if versao else 0.0)
+
+
+def candidatos_gemini(chave, pedido):
+    """Lista ordenada de modelos a tentar, mais a mensagem de erro da consulta (se houver)."""
     try:
-        from google import genai
-        opcoes = []
-        for m in genai.Client(api_key=chave).models.list():
-            nome = (m.name or "").split("/")[-1]
-            acoes = m.supported_actions or []
-            if "generateContent" not in acoes or "flash" not in nome:
-                continue
-            if any(t in nome for t in ("lite", "image", "tts", "audio", "live", "embedding", "preview", "exp")):
-                continue
-            versao = re.search(r"gemini-(\d+(?:\.\d+)?)", nome)
-            if versao:
-                opcoes.append((float(versao.group(1)), nome.endswith("latest"), nome))
-        return max(opcoes)[2] if opcoes else GEMINI_MODELO_RESERVA
-    except Exception:
-        return GEMINI_MODELO_RESERVA
+        disponiveis = [n for n in modelos_da_chave(chave) if not any(t in n for t in EXCLUIR)]
+        erro = None
+    except Exception as e:  # sem cache: tenta de novo no próximo clique
+        disponiveis, erro = [], str(e)
+    ordem = sorted(disponiveis, key=_nota, reverse=True)
+    if pedido != "auto":
+        ordem = [pedido] + [n for n in ordem if n != pedido]
+    return (ordem or ["gemini-flash-latest", "gemini-2.5-flash"]), erro
+
+
 # No plano gratuito o Google pode usar as conversas para melhorar os produtos dele:
 # por padrão NÃO enviamos nomes de lideranças. Com GEMINI_PLANO_PAGO=1 eles passam a ir no contexto.
 GEMINI_PLANO_PAGO = os.environ.get("GEMINI_PLANO_PAGO") == "1"
@@ -1009,28 +1022,53 @@ SISTEMA = (
     "propaganda fora do prazo).\n\n")
 
 
-def resposta_gemini(historico):
-    """Gera a resposta em streaming (texto em pedaços) a partir do histórico da conversa."""
+def resposta_gemini(historico, candidatos):
+    """Gera a resposta em streaming. Se um modelo não existir (404), tenta o próximo da lista."""
     from google import genai
-    from google.genai import types
+    from google.genai import errors as gerros, types
     cliente = genai.Client(api_key=GEMINI_CHAVE)
     conteudo = [types.Content(role="user" if m["role"] == "user" else "model",
                               parts=[types.Part(text=m["content"])]) for m in historico]
-    fluxo = cliente.models.generate_content_stream(
-        model=modelo_gemini(GEMINI_CHAVE, GEMINI_MODELO_PEDIDO), contents=conteudo,
-        config=types.GenerateContentConfig(
-            system_instruction=SISTEMA + contexto_para_ia(GEMINI_PLANO_PAGO),
-            temperature=0.3, max_output_tokens=4096))
-    for pedaco in fluxo:
-        if pedaco.text:
-            yield pedaco.text
+    config = types.GenerateContentConfig(system_instruction=SISTEMA + contexto_para_ia(GEMINI_PLANO_PAGO),
+                                         temperature=0.3, max_output_tokens=4096)
+    ultimo_erro = None
+    for modelo in candidatos[:6]:
+        try:
+            fluxo = iter(cliente.models.generate_content_stream(model=modelo, contents=conteudo, config=config))
+            primeiro = next(fluxo, None)  # o 404 aparece aqui, antes de qualquer texto
+        except gerros.ClientError as e:
+            if e.code == 404:
+                ultimo_erro = e
+                continue
+            raise
+        st.session_state.gemini_modelo_ok = modelo
+        for pedaco in _encadear(primeiro, fluxo):
+            if pedaco.text:
+                yield pedaco.text
+        return
+    raise ultimo_erro or RuntimeError("nenhum modelo do Gemini disponível para esta chave")
+
+
+def _encadear(primeiro, resto):
+    if primeiro is not None:
+        yield primeiro
+    yield from resto
 
 
 if SECAO == 11:
     st.subheader("Pergunte à estratégia")
-    GEMINI_MODELO = modelo_gemini(GEMINI_CHAVE, GEMINI_MODELO_PEDIDO) if GEMINI_CHAVE else GEMINI_MODELO_PEDIDO
+    candidatos, erro_lista = (candidatos_gemini(GEMINI_CHAVE, GEMINI_MODELO_PEDIDO) if GEMINI_CHAVE
+                              else ([GEMINI_MODELO_PEDIDO], None))
+    GEMINI_MODELO = st.session_state.get("gemini_modelo_ok") or candidatos[0]
     st.caption(f"Respostas geradas pelo Gemini ({GEMINI_MODELO}, Google) com base somente nos dados deste painel. "
                "Confira os números antes de decidir.")
+    if GEMINI_CHAVE:
+        with st.expander("🔧 Diagnóstico do Gemini"):
+            ordem_txt = ", ".join(f"`{c}`" for c in candidatos[:6])
+            st.markdown(f"**GEMINI_MODEL configurado:** `{GEMINI_MODELO_PEDIDO}`  \n"
+                        f"**Ordem de tentativa:** {ordem_txt}")
+            if erro_lista:
+                st.error(f"Não consegui listar os modelos da chave: {erro_lista}")
     if not GEMINI_CHAVE:
         st.warning("Para ativar, crie uma chave gratuita em aistudio.google.com e defina `GEMINI_API_KEY` "
                    "(no computador: variável de ambiente; no Streamlit Cloud: Settings → Secrets).")
@@ -1057,7 +1095,7 @@ if SECAO == 11:
         with st.chat_message("assistant"):
             from google.genai import errors as gerros
             try:
-                resposta = st.write_stream(resposta_gemini(st.session_state.chat))
+                resposta = st.write_stream(resposta_gemini(st.session_state.chat, candidatos))
                 if not resposta:
                     resposta = "Não consegui responder a essa pergunta. Tente reformular."
                     st.markdown(resposta)
@@ -1068,7 +1106,8 @@ if SECAO == 11:
                 elif e.code in (400, 401, 403):
                     st.error(f"Chave do Gemini inválida ou sem permissão ({e.code}). Confira a GEMINI_API_KEY.")
                 elif e.code == 404:
-                    st.error(f"Modelo `{GEMINI_MODELO}` não encontrado. Ajuste GEMINI_MODEL.")
+                    st.error("Nenhum dos modelos tentados existe para esta chave. Abra o "
+                             "“🔧 Diagnóstico do Gemini” acima e me envie a lista.")
                 else:
                     st.error(f"Erro do Gemini ({e.code}): {e.message}")
                 st.session_state.chat.pop()
