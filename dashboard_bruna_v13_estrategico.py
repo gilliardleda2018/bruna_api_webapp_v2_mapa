@@ -35,6 +35,20 @@ LOGO_DEV = PASTA / "assets" / "aggilli_logo_web.webp"
 st.set_page_config(page_title="Bruna Pessoa 15800 · Estratégia da Reta Final", page_icon="💗", layout="wide")
 
 
+@st.cache_resource
+def _previa_do_link():
+    """Miniatura do link no WhatsApp: grava as tags og: uma vez por processo."""
+    try:
+        from preparar_render import gravar_open_graph
+
+        return gravar_open_graph()
+    except Exception as e:  # nunca derruba o painel por causa da prévia
+        return f"prévia do link não gravada: {e}"
+
+
+_previa_do_link()
+
+
 def _exigir_senha():
     """Bloqueia o painel com senha quando APP_PASSWORD está definida (ex.: no Render).
 
