@@ -968,10 +968,10 @@ def modelos_da_chave(chave):
 
 
 def _nota(nome):
-    """Ordena candidatos: Flash > outros; apelido '-latest'; completo > 'lite'; estável > preview; versão maior."""
+    """Ordena candidatos: Flash > outros; completo > 'lite'; apelido '-latest'; estável > preview; versão maior."""
     versao = re.search(r"(\d+(?:\.\d+)?)", nome)
-    return ("flash" in nome, "gemini" in nome and "gemma" not in nome, nome.endswith("latest"),
-            "lite" not in nome, not any(t in nome for t in ("preview", "exp")),
+    return ("flash" in nome, "gemini" in nome and "gemma" not in nome, "lite" not in nome,
+            nome.endswith("latest"), not any(t in nome for t in ("preview", "exp")),
             float(versao.group(1)) if versao else 0.0)
 
 
@@ -1029,8 +1029,9 @@ def resposta_gemini(historico, candidatos):
     cliente = genai.Client(api_key=GEMINI_CHAVE)
     conteudo = [types.Content(role="user" if m["role"] == "user" else "model",
                               parts=[types.Part(text=m["content"])]) for m in historico]
-    config = types.GenerateContentConfig(system_instruction=SISTEMA + contexto_para_ia(GEMINI_PLANO_PAGO),
-                                         temperature=0.3, max_output_tokens=4096)
+    config = types.GenerateContentConfig(
+        system_instruction=SISTEMA + contexto_para_ia(GEMINI_PLANO_PAGO), temperature=0.3, max_output_tokens=4096,
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True))  # sem ferramentas
     ultimo_erro = None
     for modelo in candidatos[:6]:
         try:

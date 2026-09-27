@@ -12,15 +12,15 @@ import re
 import sys
 
 from google import genai
-from google.genai import errors
+from google.genai import errors, types
 
 EXCLUIR = ("image", "tts", "audio", "live", "embedding", "aqa", "imagen", "veo", "learnlm", "robotics", "computer")
 
 
 def nota(nome):  # mesma ordem usada pelo painel
     versao = re.search(r"(\d+(?:\.\d+)?)", nome)
-    return ("flash" in nome, "gemini" in nome and "gemma" not in nome, nome.endswith("latest"),
-            "lite" not in nome, not any(t in nome for t in ("preview", "exp")),
+    return ("flash" in nome, "gemini" in nome and "gemma" not in nome, "lite" not in nome,
+            nome.endswith("latest"), not any(t in nome for t in ("preview", "exp")),
             float(versao.group(1)) if versao else 0.0)
 
 
@@ -44,7 +44,9 @@ for i, n in enumerate(ordem[:8], 1):
 
 for modelo in ordem[:6]:
     try:
-        r = cliente.models.generate_content(model=modelo, contents="Responda só com a palavra: ok")
+        r = cliente.models.generate_content(model=modelo, contents="Responda só com a palavra: ok",
+                                            config=types.GenerateContentConfig(
+                                                automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True)))
         print(f"\nOK: {modelo} respondeu -> {(r.text or '').strip()[:40]!r}")
         break
     except errors.APIError as e:
