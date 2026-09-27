@@ -33,6 +33,32 @@ FOTO = PASTA / "assets" / "bruna_foto_web.webp"
 LOGO_DEV = PASTA / "assets" / "aggilli_logo_web.webp"
 
 st.set_page_config(page_title="Bruna Pessoa 15800 · Estratégia da Reta Final", page_icon="💗", layout="wide")
+
+
+def _exigir_senha():
+    """Bloqueia o painel com senha quando APP_PASSWORD está definida (ex.: no Render).
+
+    No Render o link é público, e o painel tem nomes de lideranças e estratégia.
+    Sem a variável (uso local pelo iniciar_painel.bat), o painel abre direto.
+    """
+    import hmac
+
+    senha_certa = os.environ.get("APP_PASSWORD", "")
+    if not senha_certa or st.session_state.get("_acesso_ok"):
+        return
+    st.markdown("### 🔒 Painel restrito à coordenação")
+    with st.form("login"):
+        digitada = st.text_input("Senha de acesso", type="password")
+        entrar = st.form_submit_button("Entrar")
+    if entrar:
+        if hmac.compare_digest(digitada.encode(), senha_certa.encode()):
+            st.session_state["_acesso_ok"] = True
+            st.rerun()
+        st.error("Senha incorreta.")
+    st.stop()
+
+
+_exigir_senha()
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Manrope:wght@400;600;800&display=swap');

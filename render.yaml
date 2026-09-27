@@ -1,0 +1,24 @@
+# Blueprint do Render: New → Blueprint → escolher este repositório.
+services:
+  - type: web
+    name: painel-bruna-v13
+    runtime: python
+    plan: free
+    region: virginia
+    branch: main
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: >-
+      streamlit run dashboard_bruna_v13_estrategico.py
+      --server.port $PORT --server.address 0.0.0.0
+      --server.headless true --browser.gatherUsageStats false
+    healthCheckPath: /_stcore/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      # Senha para abrir o painel (o Render pede o valor ao criar o serviço).
+      - key: APP_PASSWORD
+        sync: false
+      # Opcional: aba "Pergunte à estratégia" (Gemini). Pode deixar em branco.
+      - key: GEMINI_API_KEY
+        sync: false
