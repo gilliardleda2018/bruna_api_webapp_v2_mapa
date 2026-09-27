@@ -5,3 +5,7 @@ backgroundColor = "#F8F7FB"
 secondaryBackgroundColor = "#FFFFFF"
 textColor = "#122545"
 font = "sans-serif"
+
+[server]
+# Serve a pasta static/ em /app/static/ (miniatura do link no WhatsApp).
+enableStaticServing = true

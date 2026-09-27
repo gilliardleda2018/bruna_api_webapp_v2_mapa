@@ -9,6 +9,7 @@ services:
     autoDeploy: true
     buildCommand: pip install -r requirements.txt
     startCommand: >-
+      python preparar_render.py &&
       streamlit run dashboard_bruna_v13_estrategico.py
       --server.port $PORT --server.address 0.0.0.0
       --server.headless true --browser.gatherUsageStats false
