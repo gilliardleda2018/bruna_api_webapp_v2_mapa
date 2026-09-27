@@ -1,0 +1,17 @@
+dia,tipo_ato,ordem,municipio,horas_deslocamento,ganho_estimado_votos,segmento
+Seg 28/09,comício,1,Barra do Corda,1.0,1735,Território Abigail
+Seg 28/09,comício,2,Itaipava do Grajaú,1.5,472,Fortaleza Pessoa
+Seg 28/09,comício,3,Grajaú,1.6,406,Grandes centros
+Ter 29/09,comício,1,Arame,2.1,256,Rede nova de campo
+Ter 29/09,comício,2,Lago da Pedra,1.6,212,Rede nova de campo
+Ter 29/09,comício,3,Esperantinópolis,1.0,141,Rede nova de campo
+Qua 30/09,comício,1,Dom Pedro,1.3,274,Rede nova de campo
+Qua 30/09,comício,2,Presidente Dutra,0.7,239,Área Daniella
+Qua 30/09,comício,3,São Domingos do Maranhão,1.0,276,Rede nova de campo
+Qui 01/10,comício (último dia),1,Jatobá,0.5,164,Rede nova de campo
+Qui 01/10,comício (último dia),2,Santa Filomena do Maranhão,1.2,166,Território Abigail
+Qui 01/10,comício (último dia),3,Gonçalves Dias,1.4,168,Rede nova de campo
+Sex 02/10,caminhada/carreata,1,Governador Archer,0.4,139,Rede nova de campo
+Sex 02/10,caminhada/carreata,2,Timon,3.0,207,Grandes centros
+Sáb 03/10,caminhada/carreata até 22h,1,São João dos Patos,3.8,206,Rede nova de campo
+Sáb 03/10,encerramento,2,Tuntum,3.9,1745,Fortaleza Pessoa

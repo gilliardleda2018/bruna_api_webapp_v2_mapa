@@ -1,0 +1,261 @@
+{
+  "premissas": {
+    "taxa_transferencia": 0.78,
+    "taxa_recuperacao_2018": 0.35,
+    "taxa_realizacao_campo": 0.5,
+    "crescimento_eleitorado": 0.03,
+    "conversao_tuntum": 0.739
+  },
+  "referencias": {
+    "menor_eleito_2022": 24800,
+    "ultimo_eleito_chapa_governo_2022": 38329,
+    "mediana_eleitos_2022": 44068
+  },
+  "corte_2022": {
+    "votos_validos": 3703484,
+    "quociente_eleitoral": 88178,
+    "eleitos_simulados": 42,
+    "menor_votacao_eleito": 24800,
+    "mediana_eleitos": 44068,
+    "maior_votacao_nao_eleito": 37186,
+    "eleitos_abaixo_de_35mil": 7,
+    "mdb_2022_votos": 203265,
+    "mdb_2022_cadeiras": 2
+  },
+  "simulacao": {
+    "media": 54305,
+    "p10": 41238,
+    "p50": 53444,
+    "p90": 68559,
+    "prob_acima": {
+      "menor_eleito_2022": 1.0,
+      "ultimo_eleito_chapa_governo_2022": 0.946,
+      "mediana_eleitos_2022": 0.829
+    },
+    "histograma": [
+      2,
+      2,
+      11,
+      58,
+      140,
+      269,
+      410,
+      619,
+      830,
+      1133,
+      1364,
+      1517,
+      1618,
+      1642,
+      1599,
+      1494,
+      1349,
+      1180,
+      1053,
+      888,
+      704,
+      591,
+      437,
+      304,
+      242,
+      172,
+      114,
+      78,
+      70,
+      33,
+      26,
+      14,
+      13,
+      8,
+      7,
+      4,
+      2,
+      1,
+      1,
+      1
+    ],
+    "bordas": [
+      22350.0,
+      24533.0,
+      26716.0,
+      28899.0,
+      31082.0,
+      33265.0,
+      35448.0,
+      37631.0,
+      39815.0,
+      41998.0,
+      44181.0,
+      46364.0,
+      48547.0,
+      50730.0,
+      52913.0,
+      55096.0,
+      57279.0,
+      59462.0,
+      61645.0,
+      63828.0,
+      66011.0,
+      68194.0,
+      70377.0,
+      72560.0,
+      74744.0,
+      76927.0,
+      79110.0,
+      81293.0,
+      83476.0,
+      85659.0,
+      87842.0,
+      90025.0,
+      92208.0,
+      94391.0,
+      96574.0,
+      98757.0,
+      100940.0,
+      103123.0,
+      105306.0,
+      107489.0,
+      109673.0
+    ]
+  },
+  "sensibilidade": {
+    "Transferência do grupo (eleitor do Eric em 2022)": 0.1,
+    "Recuperação do eleitor do Fernando 2018": 0.28,
+    "Entrega das lideranças de campo": 0.64,
+    "Conversão do voto do prefeito em Tuntum": 0.06
+  },
+  "modelo_potencial": {
+    "r2_validacao_cruzada": 0.241,
+    "erro_medio_pontos_pct": 1.48,
+    "municipios_treino": 217,
+    "importancias": [
+      {
+        "variavel": "Distância de Tuntum",
+        "importancia": 0.9575
+      },
+      {
+        "variavel": "Voto do Eric em 2022",
+        "importancia": 0.1226
+      },
+      {
+        "variavel": "Voto da Abigail em 2022",
+        "importancia": 0.1161
+      },
+      {
+        "variavel": "Latitude",
+        "importancia": 0.0731
+      },
+      {
+        "variavel": "Voto da Daniella em 2018",
+        "importancia": 0.0562
+      },
+      {
+        "variavel": "Tamanho do eleitorado",
+        "importancia": 0.0537
+      },
+      {
+        "variavel": "Longitude",
+        "importancia": 0.0487
+      },
+      {
+        "variavel": "Voto da Daniella em 2022",
+        "importancia": 0.0379
+      }
+    ]
+  },
+  "adversarios": {
+    "Abigail Cunha": {
+      "votos_2022": 48025,
+      "estimativa_2026": 49465,
+      "nota": "Base preservada; disputa direta com Bruna em Barra do Corda e Fernando Falcão."
+    },
+    "Daniella": {
+      "votos_2022": 47277,
+      "estimativa_2026": 48695,
+      "nota": "Base em Caxias e Presidente Dutra; pouca sobreposição com Bruna."
+    },
+    "Eric Costa": {
+      "votos_2022": 40629,
+      "estimativa_2026": 24507,
+      "nota": "Perde o apoio do grupo Pessoa: cerca de 17.340 votos em jogo. sobretudo Tuntum e Itaipava."
+    },
+    "César Ferro": {
+      "votos_2022": 0,
+      "estimativa_2026": null,
+      "nota": "Estreante para deputado estadual; sem histórico no TSE."
+    }
+  },
+  "tuntum": {
+    "secoes": 94,
+    "fernando_2024": 14878,
+    "tema_2024": 8521,
+    "eric_2022": 9786,
+    "cleomar_tema_2022": 6988,
+    "conversao": {
+      "conservador": 0.658,
+      "forte": 0.82,
+      "realista": 0.739
+    },
+    "bruna": {
+      "conservador": 9789,
+      "forte": 12203,
+      "realista": 10993
+    },
+    "grupo_nao_convertido_2022": 5251
+  },
+  "segmentos": [
+    {
+      "segmento": "Rede nova de campo",
+      "municipios": 77,
+      "votos_projetados": 15092.0,
+      "eleitores": 749473,
+      "acao": "Converter a rede de lideranças em voto: logística e material."
+    },
+    {
+      "segmento": "Fortaleza Pessoa",
+      "municipios": 2,
+      "votos_projetados": 12884.0,
+      "eleitores": 29309,
+      "acao": "Blindar: garantir que todo eleitor saiba que agora o voto é Bruna."
+    },
+    {
+      "segmento": "Território Abigail",
+      "municipios": 5,
+      "votos_projetados": 9920.0,
+      "eleitores": 72734,
+      "acao": "Disputa direta: presença pessoal e lideranças fortes."
+    },
+    {
+      "segmento": "Grandes centros",
+      "municipios": 41,
+      "votos_projetados": 8448.0,
+      "eleitores": 2078973,
+      "acao": "Voto de opinião: redes sociais e mídia, não agenda presencial."
+    },
+    {
+      "segmento": "Fora do radar",
+      "municipios": 86,
+      "votos_projetados": 5753.0,
+      "eleitores": 848597,
+      "acao": "Não investir agenda nesta reta final."
+    },
+    {
+      "segmento": "Área Daniella",
+      "municipios": 6,
+      "votos_projetados": 1009.0,
+      "eleitores": 139126,
+      "acao": "Baixa sobreposição: só entrar com liderança já comprometida."
+    }
+  ],
+  "votos_fieis_grupo_total": 22232,
+  "ganho_agenda_total": 6806,
+  "situacao_campo": {
+    "Sem campo e sem histórico": 116,
+    "Acompanhar": 45,
+    "Cobrar e confirmar": 36,
+    "Base confirmada pela história": 14,
+    "Voto sem liderança: nomear responsável": 6
+  },
+  "eleitor_eric_a_converter_total": 4886,
+  "votos_campo_sem_historico": 16724
+}

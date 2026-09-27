@@ -1,0 +1,36 @@
+# Painel Estratégico V13 — Bruna Pessoa (Dep. Estadual MA / MDB)
+
+## Abrir o painel
+Clique duas vezes em `iniciar_painel.bat` (abre em http://localhost:8513).
+
+## Atualizar os números
+Depois de atualizar a planilha de lideranças (`..\CIDADES ATUALIZADO.xlsx`), rode `atualizar_modelos.bat`.
+
+## Pipeline
+| Ordem | Script | O que faz |
+|---|---|---|
+| 1 | `..\dados_tse\agregar_votacao.py 2018` / `2022` | Agrega a votação por seção do TSE por município |
+| 2 | `..\dados_tse\montar_base_rivais.py` | Votos de Bruna (Fernando 2018), Daniella, Abigail e Eric por município |
+| 3 | `..\dados_tse\contar_secoes_2022.py` | Seções e locais de votação por município |
+| 4 | `calcular_corte_2022.py` | Reconstrói as 42 cadeiras de 2022 e a linha de corte |
+| 5 | `preparar_base_v13.py` | Junta TSE + planilha de campo + mapa IBGE |
+| 6 | `tuntum_secoes_v13.py` | Calibra Tuntum seção a seção (prefeito 2024 × dep. estadual 2022) |
+| 7 | `modelos_v13.py` | Modelo de potencial, projeção, Monte Carlo, perfis e agenda |
+| 8 | `secoes_v13.py` | Projeção por seção eleitoral (bairro em Tuntum, local de votação nos demais) |
+| 9 | `dashboard_bruna_v13_estrategico.py` | Painel Streamlit |
+
+## Aba "Pergunte à estratégia"
+Usa o Claude (Anthropic). Defina `ANTHROPIC_API_KEY` antes de abrir o painel.
+As respostas usam apenas os dados do painel.
+
+## Publicar no Streamlit Community Cloud
+1. Em share.streamlit.io → **Create app** → repositório `gilliardleda2018/bruna_api_webapp_v2_mapa`, branch `main`,
+   arquivo principal `dashboard_bruna_v13_estrategico.py`.
+2. **Mantenha o app privado**: o painel tem nomes de lideranças, metas e estratégia. Em *Settings → Sharing*,
+   convide só a coordenação pelo e-mail.
+3. (Opcional) Para a aba "Pergunte à estratégia": *Settings → Secrets* →
+   `ANTHROPIC_API_KEY = "sua-chave"`.
+4. Para atualizar os números: rode `atualizar_modelos.bat` no computador, faça commit dos CSV/JSON e push —
+   o app republica sozinho.
+
+Os dados brutos do TSE (votação por seção, ~1 GB) **não** vão para o repositório; ficam em `C:\modelo_bruna\dados_tse`.

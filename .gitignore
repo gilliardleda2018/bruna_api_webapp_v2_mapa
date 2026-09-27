@@ -1,0 +1,9 @@
+# ambiente local
+__pycache__/
+*.pyc
+.claude/
+streamlit.log
+log_modelos_v13.txt
+# segredos (a chave da IA vai em Settings > Secrets no Streamlit Cloud)
+.streamlit/secrets.toml
+.env
