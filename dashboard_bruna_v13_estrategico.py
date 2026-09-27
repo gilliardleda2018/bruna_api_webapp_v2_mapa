@@ -106,6 +106,12 @@ h1, h2, h3, h4 {font-family: 'Archivo', Arial, sans-serif !important; color: #12
   .placar {gap: 8px;} .placar .gols {font-size: 1.7rem;} .placar .jogadora {font-size: 1rem;}
   .placar .x {font-size: 1.4rem;} .placar .cidade {font-size: .62rem;}
 }
+/* telas médias: indicadores em 2 × 2 para os números não serem cortados */
+@media (min-width: 761px) and (max-width: 1000px) {
+  [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) {flex-wrap: wrap; gap: .8rem;}
+  [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) > [data-testid="stColumn"] {
+      flex: 1 1 calc(50% - .8rem) !important; min-width: calc(50% - .8rem) !important; width: auto !important;}
+}
 @media (min-width: 761px) and (max-width: 1100px) {
   .banner .texto {max-width: 58%;}
   .banner .nome {font-size: 2.2rem;}
@@ -151,6 +157,8 @@ def moldura():
 
 def grafico(fig, **kwargs):
     caixa, _ = moldura()
+    # fundo transparente definido na própria figura (o tema do Streamlit sobrescreveria o do template)
+    fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
     with caixa:
         return st.plotly_chart(fig, **kwargs)
 
