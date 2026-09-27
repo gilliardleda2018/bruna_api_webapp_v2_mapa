@@ -29,7 +29,8 @@ CORES_SEGMENTO = {
     "Fortaleza Pessoa": MARINHO, "Território Abigail": VERMELHO, "Rede nova de campo": ROSA,
     "Grandes centros": "#3B6FB6", "Área Daniella": "#1A9C9C", "Fora do radar": "#E3E1E6",
 }
-FOTO = PASTA / "assets" / "bruna_foto_oficial.png"
+FOTO = PASTA / "assets" / "bruna_foto_web.webp"
+LOGO_DEV = PASTA / "assets" / "aggilli_logo_web.webp"
 
 st.set_page_config(page_title="Bruna Pessoa 15800 · Estratégia da Reta Final", page_icon="💗", layout="wide")
 st.markdown("""
@@ -138,6 +139,10 @@ h1, h2, h3, h4 {font-family: 'Archivo', Arial, sans-serif !important; color: #12
 .rodape {display: flex; align-items: center; gap: 16px; margin-top: 28px; padding: 14px 18px;
          border-radius: 16px; background: #FFFFFF; border: 1px solid #F2C4DE; color: #122545;}
 .rodape img {height: 70px;}
+.desenvolvedor {display: flex; align-items: center; justify-content: center; gap: 14px; margin: 12px 0 6px;
+                padding: 10px 18px; border-radius: 16px; background: linear-gradient(100deg, #122545, #1d3a66);}
+.desenvolvedor span {color: rgba(255,255,255,.8); font: 600 .78rem 'Manrope', sans-serif; letter-spacing: .08em;}
+.desenvolvedor img {height: 54px;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -207,6 +212,11 @@ def foto_base64():
     return base64.b64encode(FOTO.read_bytes()).decode() if FOTO.exists() else ""
 
 
+@st.cache_data
+def logo_dev_base64():
+    return base64.b64encode(LOGO_DEV.read_bytes()).decode() if LOGO_DEV.exists() else ""
+
+
 def n(x):
     """Número no padrão brasileiro."""
     return f"{x:,.0f}".replace(",", ".")
@@ -250,6 +260,7 @@ IDX_TUNTUM = int(np.flatnonzero(base.cidade_norm.values == "tuntum")[0])
 base["cd_ibge"] = base["cd_ibge"].astype(str)
 sim = R["simulacao"]
 ref = R["referencias"]
+p = R["premissas"]  # usado no Simulador e em Como funciona
 dias_restantes = (ELEICAO - pd.Timestamp.today().normalize()).days
 
 
@@ -333,7 +344,7 @@ def ficha_texto(m):
 # Cabeçalho
 # ----------------------------------------------------------------------
 _foto = foto_base64()
-_img = f'<img src="data:image/png;base64,{_foto}" alt="Bruna Pessoa">' if _foto else ""
+_img = f'<img src="data:image/webp;base64,{_foto}" alt="Bruna Pessoa">' if _foto else ""
 _faltam = max(dias_restantes, 0)
 st.markdown(f"""
 <div class="banner">
@@ -348,16 +359,16 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-abas = st.tabs(["📋 Resumo da semana", "🗓️ Agenda", "📞 Lideranças", "🏠 Tuntum", "⚽ Tuntum × Barra",
-                "🧮 Seções e bairros",
-                "🔁 Eleitor do Eric", "🗺️ Mapa",
-                "🗳️ Dia da eleição", "🔎 Município", "🎛️ Simulador", "💬 Pergunte à estratégia",
-                "ℹ️ Como funciona"])
+SECOES = ["📋 Resumo da semana", "🗓️ Agenda", "📞 Lideranças", "🏠 Tuntum", "⚽ Tuntum × Barra", "🧮 Seções e bairros", "🔁 Eleitor do Eric", "🗺️ Mapa", "🗳️ Dia da eleição", "🔎 Município", "🎛️ Simulador", "💬 Pergunte à estratégia", "ℹ️ Como funciona"]
+# Botões de seção em vez de st.tabs: o Streamlit só calcula a seção aberta (st.tabs calcula todas a cada clique)
+_escolha = st.pills("Seção", SECOES, default=SECOES[0], selection_mode="single",
+                    label_visibility="collapsed", key="secao")
+SECAO = SECOES.index(_escolha) if _escolha in SECOES else 0
 
 # ----------------------------------------------------------------------
 # 1. Resumo
 # ----------------------------------------------------------------------
-with abas[0]:
+if SECAO == 0:
     k = st.columns(4)
     k[0].metric("Projeção central", mil(sim["p50"]) + " votos")
     k[1].metric("Faixa provável (80%)", f"{mil(sim['p10'])} a {mil(sim['p90'])}")
@@ -436,7 +447,7 @@ incerteza do mapa — é onde uma visita vale mais.</div>
 # ----------------------------------------------------------------------
 # 2. Agenda
 # ----------------------------------------------------------------------
-with abas[1]:
+if SECAO == 1:
     st.subheader("Agenda sugerida · 28/09 a 03/10")
     st.markdown(
         "Montada para **maximizar votos por hora de estrada**, saindo de Tuntum. O ganho estimado de cada parada "
@@ -474,7 +485,7 @@ with abas[1]:
 # ----------------------------------------------------------------------
 # 3. Lideranças
 # ----------------------------------------------------------------------
-with abas[2]:
+if SECAO == 2:
     st.subheader("Quem ligar hoje")
     st.markdown(
         "Comparamos a **expectativa que a equipe registrou** para cada município com o que o **histórico do TSE** "
@@ -510,7 +521,7 @@ with abas[2]:
 # ----------------------------------------------------------------------
 # Tuntum — bairro a bairro
 # ----------------------------------------------------------------------
-with abas[3]:
+if SECAO == 3:
     st.subheader("Tuntum, seção por seção")
     st.markdown(
         f"Cruzamos as **{TUN['secoes']} seções** da eleição de prefeito de 2024 (Fernando {n(TUN['fernando_2024'])} × "
@@ -560,7 +571,7 @@ Nesses bairros o trabalho é <b>porta a porta com as lideranças do bairro</b>, 
 # ----------------------------------------------------------------------
 # O clássico: Tuntum × Barra do Corda (Bruna × Abigail)
 # ----------------------------------------------------------------------
-with abas[4]:
+if SECAO == 4:
     dr, dml = DUELO["resumo"], DUELO["ml"]
     du, reg_inc, clf = dml["duelo"], dml["regressao_incumbencia"], dml["classificacao_barra"]
     chance = du["prob_bruna_supera_abigail_total"]
@@ -690,7 +701,7 @@ a lista de trincheiras acima usa o resultado real, e o modelo serve de pista, n�
 # ----------------------------------------------------------------------
 # Seções e bairros — projeção de votos por seção eleitoral
 # ----------------------------------------------------------------------
-with abas[5]:
+if SECAO == 5:
     st.subheader("Projeção de votos por seção e bairro")
     st.markdown(
         "Quantos votos a Bruna deve ter em **cada seção eleitoral**. Serve para dar **meta por seção** às lideranças "
@@ -764,7 +775,7 @@ with abas[5]:
 # ----------------------------------------------------------------------
 # 4. Eleitor do Eric
 # ----------------------------------------------------------------------
-with abas[6]:
+if SECAO == 6:
     st.subheader("O eleitor que votou no Eric por causa do grupo")
     st.markdown(
         "Em 2022 o prefeito Fernando Pessoa apoiou Eric Costa. Parte desse eleitor votou **no grupo**, não no Eric. "
@@ -791,7 +802,7 @@ with abas[6]:
 # ----------------------------------------------------------------------
 # 5. Mapa
 # ----------------------------------------------------------------------
-with abas[7]:
+if SECAO == 7:
     visao = st.radio("Colorir o mapa por", ["Votos projetados", "Perfil estratégico", "Situação da rede de campo",
                                             "Voto do Eric 2022 (%)", "Voto da Abigail 2022 (%)"], horizontal=True)
     comum = dict(geojson=geo, locations="cd_ibge", featureidkey="properties.CD_MUN", hover_name="municipio",
@@ -818,7 +829,7 @@ with abas[7]:
 # ----------------------------------------------------------------------
 # 6. Dia da eleição
 # ----------------------------------------------------------------------
-with abas[8]:
+if SECAO == 8:
     st.subheader("Domingo, 4 de outubro: onde colocar fiscais e mobilização")
     st.markdown(
         "Prioridade = votos projetados + metade da incerteza (onde o resultado ainda pode mudar). "
@@ -844,7 +855,7 @@ with abas[8]:
 # ----------------------------------------------------------------------
 # 7. Ficha do município
 # ----------------------------------------------------------------------
-with abas[9]:
+if SECAO == 9:
     ordem = base.sort_values("votos_projetados", ascending=False).municipio.tolist()
     escolha = st.selectbox("Escolha o município", ordem)
     m = base.loc[base.municipio == escolha].iloc[0]
@@ -865,7 +876,7 @@ with abas[9]:
 # ----------------------------------------------------------------------
 # 8. Simulador
 # ----------------------------------------------------------------------
-with abas[10]:
+if SECAO == 10:
     st.subheader("E se…? Mexa nas premissas e veja o resultado")
     p = R["premissas"]
     c = st.columns(3)
@@ -950,7 +961,7 @@ def resposta_gemini(historico):
             yield pedaco.text
 
 
-with abas[11]:
+if SECAO == 11:
     st.subheader("Pergunte à estratégia")
     st.caption(f"Respostas geradas pelo Gemini ({GEMINI_MODELO}, Google) com base somente nos dados deste painel. "
                "Confira os números antes de decidir.")
@@ -1005,7 +1016,7 @@ with abas[11]:
 # ----------------------------------------------------------------------
 # 10. Como funciona
 # ----------------------------------------------------------------------
-with abas[12]:
+if SECAO == 12:
     mp = R["modelo_potencial"]
     st.subheader("Como o painel chega aos números")
     st.markdown(f"""
@@ -1057,4 +1068,10 @@ st.markdown(f"""
   <div><b style="font-family:Archivo;font-size:1.1rem">Bruna Pessoa · 15800</b><br>
   <span class="pequeno">Painel de uso interno da coordenação. Não divulgar projeções, metas nem nomes de lideranças.</span></div>
 </div>
+""", unsafe_allow_html=True)
+_logo_dev = logo_dev_base64()
+if _logo_dev:
+    st.markdown(f"""
+<div class="desenvolvedor"><span>DESENVOLVIDO POR</span>
+  <img src="data:image/webp;base64,{_logo_dev}" alt="Aggilli Intelligence"></div>
 """, unsafe_allow_html=True)
